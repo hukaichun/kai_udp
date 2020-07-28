@@ -1,12 +1,21 @@
 #include "kai_udp.h"
-
+#include <cstdlib>
 
 #include <iostream>
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-    KAI_UDP::UDP udp("0.0.0.0", 8700);
+
+    if(argc<3)
+    {
+        printf("usage: ./client <IP> <port> \n");
+        return 0;
+    }else{
+
+    }
+
+    KAI_UDP::UDP udp(argv[1], atoi(argv[2]));
     char inputBuffer[256];
     while (true)
     {

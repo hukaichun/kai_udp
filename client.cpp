@@ -1,13 +1,21 @@
 #include "kai_udp.h"
 
 #include <cstdio>
+#include <cstdlib>
 
-int main()
+int main(int argc, char *argv[])
 {
-    KAI_UDP::UDP udp("0.0.0.0", 8701);
+
+    if(argc<5)
+    {
+        printf("usage: ./server <IP> <port> <Remote IP> <Remote port> \n");
+        return 0;
+    }
+
+    KAI_UDP::UDP udp(argv[1], atoi(argv[2]));
     
     int partner_num = 0;
-    partner_num = udp.register_partner("127.0.0.1", 8700);
+    partner_num = udp.register_partner(argv[3], atoi(argv[4]));
     printf("partner num %d\n", partner_num);
  
 
