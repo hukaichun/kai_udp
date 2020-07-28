@@ -9,7 +9,7 @@ add_library(kaiudp
 )
 
 add_executable(server server.cpp)
-target_link_libraries(server kai_udp)
+target_link_libraries(server kaiudp)
 
 add_executable(client client.cpp)
-target_link_libraries(client kai_udp)
+target_link_libraries(client kaiudp)
