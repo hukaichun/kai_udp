@@ -4,3 +4,9 @@ project(kai_udp)
 add_library(kaiudp
     kai_udp.cpp
 )
+
+add_executable(server server.cpp)
+target_link_libraries(server kai_udp)
+
+add_executable(client client.cpp)
+target_link_libraries(client kai_udp)

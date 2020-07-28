@@ -29,7 +29,7 @@ namespace KAI_UDP
     {
         sockaddr_in info;
         info.sin_family = AF_INET;
-        info.sin_port = htons(8700);
+        info.sin_port = htons(port);
         inet_pton(info.sin_family, IP, &info.sin_addr);
         memset(&info.sin_zero, 0, sizeof(info.sin_zero));
         return info;

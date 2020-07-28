@@ -45,4 +45,5 @@ namespace KAI_UDP
         sockaddr_in _info;
         bool _is_valid;
     };
+
 } // namespace KAI_UDP
