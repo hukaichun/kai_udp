@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     }
 
-    KAI_UDP::UDP udp(argv[1], atoi(argv[2]));
+    KAI::UDP udp(argv[1], atoi(argv[2]));
     char inputBuffer[256];
     while (true)
     {

@@ -1,7 +1,7 @@
 #include "kai_udp.h"
 
 
-namespace KAI_UDP
+namespace KAI
 {
 
     bool sockaddr_compare::operator()(
@@ -90,4 +90,4 @@ namespace KAI_UDP
             (sockaddr *)&_partner_from, &partnerlen);
     }
 
-} // namespace KAI_UDP
+} // namespace KAI

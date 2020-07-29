@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    KAI_UDP::UDP udp(argv[1], atoi(argv[2]));
+    KAI::UDP udp(argv[1], atoi(argv[2]));
     
     int partner_num = 0;
     partner_num = udp.register_partner(argv[3], atoi(argv[4]));

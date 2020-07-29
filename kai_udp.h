@@ -12,7 +12,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-namespace KAI_UDP
+namespace KAI
 {
 
     struct sockaddr_compare
@@ -46,4 +46,4 @@ namespace KAI_UDP
         bool _is_valid;
     };
 
-} // namespace KAI_UDP
+} // namespace KAI
