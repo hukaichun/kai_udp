@@ -5,18 +5,18 @@ namespace KAI
 {
 
     bool sockaddr_compare::operator()(
-        const sockaddr_in &A, const sockaddr_in &B)
+        const  UDP_PARTNER &A, const  UDP_PARTNER &B)
     {
-        if (A.sin_addr.s_addr < B.sin_addr.s_addr)
+        if (A.sock.sin_addr.s_addr < B.sock.sin_addr.s_addr)
         {
             return true;
         }
-        else if (A.sin_addr.s_addr > B.sin_addr.s_addr)
+        else if (A.sock.sin_addr.s_addr > B.sock.sin_addr.s_addr)
         {
             return false;
         }else
         {
-            if(A.sin_port < B.sin_port)
+            if(A.sock.sin_port < B.sock.sin_port)
                 return true;
             else 
                 return false;
@@ -56,7 +56,12 @@ namespace KAI
 
     int UDP::register_partner(const char *IP, int port)
     {
-        _partners.insert(get_sockaddr(IP, port));
+        UDP_PARTNER partner;
+        partner.timestemp = 0;
+        partner.sock = get_sockaddr(IP, port);
+        
+
+        _partners.insert(partner);
         return _partners.size();
     }
 
@@ -79,15 +84,24 @@ namespace KAI
         return num;
     }
 
-    int UDP::recv(void *buf, int buf_len)
+    int UDP::recv(void *buf, int buf_len, sockaddr_in* from)
     {
         static socklen_t partnerlen = sizeof(_partner_from);
+        static int nbytes = 0;
 
-        return recvfrom(
+
+        nbytes = recvfrom(
             _fd,
             buf, buf_len,
             0,
             (sockaddr *)&_partner_from, &partnerlen);
+
+        if(from)
+        {
+            memcpy(from, &_partner_from, partnerlen);
+        }
+
+        return nbytes;
     }
 
 } // namespace KAI

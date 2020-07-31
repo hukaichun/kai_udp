@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<mavlink>
+  <version>0</version>
+  <dialect>9487</dialect>
+
+  <!-- <enums>
+    <enum name="LANDING_TARGET_TYPE">
+      <description>Type of landing target</description>
+      <entry value="0" name="LANDING_TARGET_TYPE_LIGHT_BEACON">
+        <description>Landing target signaled by light beacon (ex: IR-LOCK)</description>
+      </entry>
+      <entry value="1" name="LANDING_TARGET_TYPE_RADIO_BEACON">
+        <description>Landing target signaled by radio beacon (ex: ILS, NDB)</description>
+      </entry>
+      <entry value="2" name="LANDING_TARGET_TYPE_VISION_FIDUCIAL">
+        <description>Landing target represented by a fiducial marker (ex: ARTag)</description>
+      </entry>
+      <entry value="3" name="LANDING_TARGET_TYPE_VISION_OTHER">
+        <description>Landing target represented by a pre-defined visual shape/feature (ex: X-marker, H-marker, square)</description>
+      </entry>
+    </enum>
+  </enums> -->
+
+  <messages>
+    <message id="0" name="HEARTBEAT">
+      <description>Servo State</description>
+      <field type="uint64_t" name="timestamp">timestamp</field>
+    </message>
+
+    <message id="1" name="SETTING">
+      <description>Setting Servo</description>
+      <field type="uint8_t" name="ID">ID</field>
+      <field type="int16_t" name="DIR"> Rotation Direction </field>
+      <field type="uint16_t" name="ZERO"> Zero Position </field>
+    </message>
+
+    <message id="2" name="SERVO_STATE">
+      <description>Servo State</description>
+      <field type="uint8_t" name="ID">ID</field>
+      <field type="uint64_t" name="timestamp">timestamp</field>
+      <field type="float" name="GoalPosition">GoalPosition</field>
+      <field type="float" name="MovingSpeed">MovingSpeed</field>
+      <field type="float" name="PresentPosition">PresentPosition</field>
+      <field type="float" name="PresentSpeed">PresentSpeed</field>
+      <field type="float" name="PresentLoad">PresentLoad</field>
+      <field type="uint32_t" name="PresentTemperature">PresentTemperature</field>
+    </message>
+
+    <message id="3" name="COMMAND">
+      <description>Servo State</description>
+      <field type="uint8_t" name="ID">ID</field>
+      <field type="uint64_t" name="timestamp">timestamp</field>
+      <field type="float" name="GoalPosition">GoalPosition</field>
+      <field type="float" name="MovingSpeed">MovingSpeed</field>
+    </message>
+  </messages>
+</mavlink>
