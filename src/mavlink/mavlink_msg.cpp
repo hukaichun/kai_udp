@@ -1,4 +1,4 @@
-#include "mavlink_msg.h"
+#include "mavlink/mavlink_msg.h"
 
 namespace mavlink
 {

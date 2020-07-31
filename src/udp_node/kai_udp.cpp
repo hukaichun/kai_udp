@@ -1,4 +1,4 @@
-#include "kai_udp.h"
+#include "udp_node/kai_udp.h"
 
 
 namespace KAI
@@ -68,13 +68,13 @@ namespace KAI
     ssize_t UDP::send(const void *msg, int msg_len)
     {
         int num = 0, bytes = 0;
-        for (const auto &partner : _partners)
+        for (const UDP_PARTNER &partner : _partners)
         {
             bytes = sendto(
                         _fd,
                         msg, msg_len,
                         0,
-                        (sockaddr *)&partner, sizeof(partner)
+                        (sockaddr *)&(partner.sock), sizeof(partner)
                         );
 
             if (bytes > 0)
