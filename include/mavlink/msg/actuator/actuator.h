@@ -34,6 +34,18 @@ extern "C" {
 // ENUM DEFINITIONS
 
 
+/** @brief message type */
+#ifndef HAVE_ENUM_MESSAGE_TYPE
+#define HAVE_ENUM_MESSAGE_TYPE
+typedef enum MESSAGE_TYPE
+{
+   MESSAGE_TYPE_HEARTBEAT=0, /* heartbeat | */
+   MESSAGE_TYPE_SETTING=1, /* setting the servo | */
+   MESSAGE_TYPE_SERVO_STATE=2, /* servo state | */
+   MESSAGE_TYPE_COMMAND=3, /* command for servo | */
+   MESSAGE_TYPE_ENUM_END=4, /*  | */
+} MESSAGE_TYPE;
+#endif
 
 // MAVLINK VERSION
 

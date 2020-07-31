@@ -2,6 +2,7 @@
 
 #include <string>
 #include <cstdio>
+#include <ctime>
 
 // memset
 #include <cstring>
@@ -26,7 +27,7 @@ namespace KAI
 
     struct sockaddr_compare
     {
-        bool operator()(const UDP_PARTNER &, const UDP_PARTNER &);
+        bool operator()(const UDP_PARTNER &, const UDP_PARTNER &) const;
     };
 
     sockaddr_in get_sockaddr(const char *IP, int port);
@@ -34,19 +35,24 @@ namespace KAI
     class UDP
     {
     public:
+        using PARTNER_SET = std::set<UDP_PARTNER, sockaddr_compare>;
+
         UDP() = delete;
         UDP(const char *IP, int port);
         virtual ~UDP();
         bool check_valid();
 
-        int register_partner(const char *IP, int port);
+        bool register_partner(const char *IP, int port);
+        bool register_partner(const UDP_PARTNER &);
 
         ssize_t send(const void *msg, int msg_len);
-        int recv(void *buf, int buf_len, sockaddr_in *from = nullptr);
+        int recv(void *buf,
+                 int buf_len,
+                 sockaddr_in *from = nullptr);
 
     protected:
-        std::set<UDP_PARTNER, sockaddr_compare> _partners;
-        sockaddr_in _partner_from;
+        PARTNER_SET _partners;
+        UDP_PARTNER _partner_from;
         socklen_t _partnerlen;
 
     private:

@@ -30,6 +30,17 @@ constexpr auto MAVLINK_VERSION = 0;
 // ENUM DEFINITIONS
 
 
+/** @brief message type */
+enum class MESSAGE_TYPE
+{
+    HEARTBEAT=0, /* heartbeat | */
+    SETTING=1, /* setting the servo | */
+    SERVO_STATE=2, /* servo state | */
+    COMMAND=3, /* command for servo | */
+};
+
+//! MESSAGE_TYPE ENUM_END
+constexpr auto MESSAGE_TYPE_ENUM_END = 4;
 
 
 } // namespace actuator

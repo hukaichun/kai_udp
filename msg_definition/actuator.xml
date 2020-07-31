@@ -3,23 +3,23 @@
   <version>0</version>
   <dialect>9487</dialect>
 
-  <!-- <enums>
-    <enum name="LANDING_TARGET_TYPE">
-      <description>Type of landing target</description>
-      <entry value="0" name="LANDING_TARGET_TYPE_LIGHT_BEACON">
-        <description>Landing target signaled by light beacon (ex: IR-LOCK)</description>
+  <enums>
+    <enum name="MESSAGE_TYPE">
+      <description>message type</description>
+      <entry value="0" name="MESSAGE_TYPE_HEARTBEAT">
+        <description>heartbeat</description>
       </entry>
-      <entry value="1" name="LANDING_TARGET_TYPE_RADIO_BEACON">
-        <description>Landing target signaled by radio beacon (ex: ILS, NDB)</description>
+      <entry value="1" name="MESSAGE_TYPE_SETTING">
+        <description>setting the servo</description>
       </entry>
-      <entry value="2" name="LANDING_TARGET_TYPE_VISION_FIDUCIAL">
-        <description>Landing target represented by a fiducial marker (ex: ARTag)</description>
+      <entry value="2" name="MESSAGE_TYPE_SERVO_STATE">
+        <description>servo state</description>
       </entry>
-      <entry value="3" name="LANDING_TARGET_TYPE_VISION_OTHER">
-        <description>Landing target represented by a pre-defined visual shape/feature (ex: X-marker, H-marker, square)</description>
+      <entry value="3" name="MESSAGE_TYPE_COMMAND">
+        <description>command for servo</description>
       </entry>
     </enum>
-  </enums> -->
+  </enums>
 
   <messages>
     <message id="0" name="HEARTBEAT">

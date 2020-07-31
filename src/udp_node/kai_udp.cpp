@@ -1,11 +1,10 @@
 #include "udp_node/kai_udp.h"
 
-
 namespace KAI
 {
 
-    bool sockaddr_compare::operator()(
-        const  UDP_PARTNER &A, const  UDP_PARTNER &B)
+    bool sockaddr_compare::operator() (
+        const UDP_PARTNER &A, const UDP_PARTNER &B) const
     {
         if (A.sock.sin_addr.s_addr < B.sock.sin_addr.s_addr)
         {
@@ -14,11 +13,12 @@ namespace KAI
         else if (A.sock.sin_addr.s_addr > B.sock.sin_addr.s_addr)
         {
             return false;
-        }else
+        }
+        else
         {
-            if(A.sock.sin_port < B.sock.sin_port)
+            if (A.sock.sin_port < B.sock.sin_port)
                 return true;
-            else 
+            else
                 return false;
         }
     }
@@ -54,15 +54,27 @@ namespace KAI
         return _is_valid;
     }
 
-    int UDP::register_partner(const char *IP, int port)
+    bool UDP::register_partner(const char *IP, int port)
     {
         UDP_PARTNER partner;
         partner.timestemp = 0;
         partner.sock = get_sockaddr(IP, port);
-        
+        return register_partner(partner);
+    }
 
-        _partners.insert(partner);
-        return _partners.size();
+    bool UDP::register_partner(const UDP_PARTNER &partner)
+    {
+        if (_partners.count(partner) == 0)
+        {
+            _partners.insert(partner);
+            return true;
+        }
+        else
+        {
+            _partners.erase(partner);
+            _partners.insert(partner);
+            return false;
+        }
     }
 
     ssize_t UDP::send(const void *msg, int msg_len)
@@ -71,11 +83,10 @@ namespace KAI
         for (const UDP_PARTNER &partner : _partners)
         {
             bytes = sendto(
-                        _fd,
-                        msg, msg_len,
-                        0,
-                        (sockaddr *)&(partner.sock), sizeof(partner)
-                        );
+                _fd,
+                msg, msg_len,
+                0,
+                (sockaddr *)&(partner.sock), sizeof(partner));
 
             if (bytes > 0)
                 num += 1;
@@ -84,19 +95,19 @@ namespace KAI
         return num;
     }
 
-    int UDP::recv(void *buf, int buf_len, sockaddr_in* from)
+    int UDP::recv(void *buf, int buf_len, sockaddr_in *from)
     {
-        static socklen_t partnerlen = sizeof(_partner_from);
+        static socklen_t partnerlen = sizeof(_partner_from.sock);
         static int nbytes = 0;
-
 
         nbytes = recvfrom(
             _fd,
             buf, buf_len,
             0,
-            (sockaddr *)&_partner_from, &partnerlen);
+            (sockaddr *)&(_partner_from.sock), &partnerlen);
+        _partner_from.timestemp = clock();
 
-        if(from)
+        if (from)
         {
             memcpy(from, &_partner_from, partnerlen);
         }
