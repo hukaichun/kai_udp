@@ -37,19 +37,13 @@ namespace KAI
         while (!should_stop_)
         {
             uint16_t recv_bytes = this->recv(recv_buf, PACK_SIZE);
-            done = false;
-            for (uint16_t i = 0; i < recv_bytes; ++i)
-            {
-                done = mavlink::mavlink_parse_char(
-                    mavlink::MAVLINK_COMM_0, recv_buf[i], &mavlink_msg, &status);
-            }
+            
+            done = mavlink::mavlink_parse_msg_0(recv_buf, recv_bytes, &mavlink_msg, &status);
             if (done)
             {
                 cout << "recv data, msgid: " << mavlink_msg.msgid << endl;
 
                 mavlink::actuator::MESSAGE_TYPE msg_type = static_cast<mavlink::actuator::MESSAGE_TYPE>(mavlink_msg.msgid);
-
-
 
                 switch (msg_type)
                 {
@@ -57,7 +51,8 @@ namespace KAI
                     if (register_partner(this->_partner_from))
                     {
                         cout << "add partner : " << str(_partner_from.sock) << endl;
-                    }else
+                    }
+                    else
                     {
                         cout << "partner exist" << endl;
                     }
