@@ -10,4 +10,4 @@ add_executable(client client.cpp)
 target_link_libraries(client kai_udp)
 
 add_executable(test_udp_node test_udp_node.cpp)
-target_link_libraries(test_udp_node kai_udp mavlink_msg)
+target_link_libraries(test_udp_node udp_node mavlink_msg)

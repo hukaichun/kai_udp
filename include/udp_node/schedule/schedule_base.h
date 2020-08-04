@@ -12,16 +12,25 @@ namespace KAI
 {
     namespace Schedule
     {
+        /**
+         * Letter Base Class
+        */
         class LetterBase
         {
         public:
             virtual uint16_t SetMessage(uint8_t *buf) = 0;
         };
 
+        /**
+         * Rename pointer
+        */
         using Letter_ptr = std::shared_ptr<LetterBase>;
 
+        /**
+         * CRPT_Base Class
+        */
         template <typename T>
-        class Task_CRTP : public LetterBase
+        class Letter_CRTP : public LetterBase
         {
         public:
             uint16_t SetMessage(uint8_t *buf) override
@@ -32,17 +41,21 @@ namespace KAI
             uint16_t SetMessage_Impl(uint8_t *buf) { return 0; }
 
         private:
-            Task_CRTP() {}
+            Letter_CRTP() {}
             friend T;
         };
 
+        /**
+         * Schedule Base Class
+         *   ScheduleBase()     // constructer, starting main_loop at begining
+        */
         class ScheduleBase
         {
         public:
             ScheduleBase();
             ~ScheduleBase();
 
-            int Push(Letter_ptr Letter_ptr);
+            int Push(Letter_ptr letter_ptr);
             virtual void execute_task(Letter_ptr) = 0;
 
         private:

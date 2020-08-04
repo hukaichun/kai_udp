@@ -1,27 +1,7 @@
-#include "udp_node/kai_udp.h"
+#include "kai_udp/kai_udp.h"
 
 namespace KAI
 {
-
-    bool sockaddr_compare::operator() (
-        const UDP_PARTNER &A, const UDP_PARTNER &B) const
-    {
-        if (A.sock.sin_addr.s_addr < B.sock.sin_addr.s_addr)
-        {
-            return true;
-        }
-        else if (A.sock.sin_addr.s_addr > B.sock.sin_addr.s_addr)
-        {
-            return false;
-        }
-        else
-        {
-            if (A.sock.sin_port < B.sock.sin_port)
-                return true;
-            else
-                return false;
-        }
-    }
 
 
 

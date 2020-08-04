@@ -1,6 +1,6 @@
 #pragma once
 
-#include "kai_udp.h"
+#include "kai_udp/kai_udp.h"
 #include "schedule/schedule_base.h"
 #include "mavlink/mavlink_msg.h"
 
@@ -25,7 +25,5 @@ namespace KAI
         void recv_loop();
         std::thread recv_thr_;
         bool should_stop_ = false;
-
-
     };
 }

@@ -20,13 +20,6 @@
 namespace KAI
 {
 
-    
-
-    struct sockaddr_compare
-    {
-        bool operator()(const UDP_PARTNER &, const UDP_PARTNER &) const;
-    };
-
 
     class UDP
     {
@@ -63,12 +56,6 @@ namespace KAI
         sockaddr_in _info;
         bool _is_valid;
     };
-
-    /**
-     * Get sockaddr ip port
-     * 
-     * @param sock 
-     */
-    
+   
 
 } // namespace KAI
