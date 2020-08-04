@@ -23,17 +23,7 @@ namespace KAI
         }
     }
 
-    sockaddr_in get_sockaddr(
-        const char *IP,
-        int port)
-    {
-        sockaddr_in info;
-        info.sin_family = AF_INET;
-        info.sin_port = htons(port);
-        inet_pton(info.sin_family, IP, &info.sin_addr);
-        memset(&info.sin_zero, 0, sizeof(info.sin_zero));
-        return info;
-    }
+
 
     UDP::UDP(const char *IP, int port) : _fd(socket(AF_INET, SOCK_DGRAM, 0)),
                                          _info(get_sockaddr(IP, port)),
@@ -54,34 +44,14 @@ namespace KAI
         return _is_valid;
     }
 
-    bool UDP::register_partner(const char *IP, int port)
-    {
-        UDP_PARTNER partner;
-        partner.timestemp = 0;
-        partner.sock = get_sockaddr(IP, port);
-        return register_partner(partner);
-    }
 
-    bool UDP::register_partner(const UDP_PARTNER &partner)
-    {
-        if (_partners.count(partner) == 0)
-        {
-            _partners.insert(partner);
-            return true;
-        }
-        else
-        {
-            _partners.erase(partner);
-            _partners.insert(partner);
-            return false;
-        }
-    }
 
     ssize_t UDP::send(const void *msg, int msg_len)
     {
         int num = 0, bytes = 0;
-        for (const UDP_PARTNER &partner : _partners)
+        for (const auto &x : _address_book)
         {
+            const UDP_PARTNER& partner = x.second; // alias of udp_partner  
             bytes = sendto(
                 _fd,
                 msg, msg_len,

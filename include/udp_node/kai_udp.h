@@ -3,47 +3,50 @@
 #include <string>
 #include <cstdio>
 #include <ctime>
+#include <map>
 
 // memset
 #include <cstring>
-#include <set>
 
 // close()
 #include <unistd.h>
 
-// socket header
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+
+
+#include "socket_helper.h"
+#include "address_book/address_book.h"
+
 
 namespace KAI
 {
 
-    struct UDP_PARTNER
-    {
-        clock_t timestemp;
-        sockaddr_in sock;
-    };
+    
 
     struct sockaddr_compare
     {
         bool operator()(const UDP_PARTNER &, const UDP_PARTNER &) const;
     };
 
-    sockaddr_in get_sockaddr(const char *IP, int port);
 
     class UDP
     {
     public:
-        using PARTNER_SET = std::set<UDP_PARTNER, sockaddr_compare>;
 
         UDP() = delete;
         UDP(const char *IP, int port);
         virtual ~UDP();
         bool check_valid();
 
-        bool register_partner(const char *IP, int port);
-        bool register_partner(const UDP_PARTNER &);
+        inline bool register_partner(const char* IP, int port)
+        {
+            return _address_book.add(IP,port);
+        }
+
+        inline bool register_partner(const UDP_PARTNER& partner)
+        {
+            return _address_book.add(partner);
+        }
+
 
         ssize_t send(const void *msg, int msg_len);
         int recv(void *buf,
@@ -51,7 +54,7 @@ namespace KAI
                  sockaddr_in *from = nullptr);
 
     protected:
-        PARTNER_SET _partners;
+        AddressBook _address_book;
         UDP_PARTNER _partner_from;
         socklen_t _partnerlen;
 
@@ -66,20 +69,6 @@ namespace KAI
      * 
      * @param sock 
      */
-    static inline std::string str(const sockaddr_in &sock)
-    {
-        char buf[128];
-        char ip[INET_ADDRSTRLEN];
-        uint16_t port = 0;
-
-        memset(buf, 0, 128);
-        memset(ip, 0, INET_ADDRSTRLEN);
-
-        inet_ntop(AF_INET, &(sock.sin_addr), ip, INET_ADDRSTRLEN);
-        port = ntohs(sock.sin_port);
-
-        sprintf(buf, "%s:%d", ip, port);
-        return std::string(buf);
-    }
+    
 
 } // namespace KAI
