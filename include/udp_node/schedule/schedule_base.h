@@ -18,7 +18,7 @@ namespace KAI
         class LetterBase
         {
         public:
-            virtual uint16_t SetMessage(uint8_t *buf) = 0;
+            inline uint16_t SetMessage(uint8_t *buf){return 0;};
         };
 
         /**
@@ -33,12 +33,12 @@ namespace KAI
         class Letter_CRTP : public LetterBase
         {
         public:
-            uint16_t SetMessage(uint8_t *buf) override
+            uint16_t SetMessage(uint8_t *buf)
             {
                 return static_cast<T *>(this)->SetMessage_Impl(buf);
             }
 
-            uint16_t SetMessage_Impl(uint8_t *buf) { return 0; }
+            inline uint16_t SetMessage_Impl(uint8_t *buf){return 0;};
 
         private:
             Letter_CRTP() {}
@@ -56,7 +56,10 @@ namespace KAI
             ~ScheduleBase();
 
             int Push(Letter_ptr letter_ptr);
-            virtual void execute_task(Letter_ptr) = 0;
+            inline void execute_task(Letter_ptr){
+                throw std::string("Not Implementation Error!");
+                return;
+            }
 
         private:
             void main_loop();

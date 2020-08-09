@@ -5,10 +5,17 @@ using namespace std;
 
 namespace KAI
 {
-    UDP_NODE::UDP_NODE(int port) : UDP("0.0.0.0", port),
-                                   Schedule::ScheduleBase()
+    UDP_NODE::UDP_NODE(int port,
+        std::shared_ptr<mavlink::MsgHandlerBase> handler) :
+        UDP("0.0.0.0", port),
+        Schedule::ScheduleBase(),
+        msg_handler_(handler)
     {
         recv_thr_ = std::thread(&UDP_NODE::recv_loop, this);
+        if (!msg_handler_)
+        {
+            msg_handler_  = std::make_shared<mavlink::MsgHandlerBase>();
+        }
     }
 
     UDP_NODE::~UDP_NODE()
@@ -37,7 +44,7 @@ namespace KAI
         while (!should_stop_)
         {
             uint16_t recv_bytes = this->recv(recv_buf, PACK_SIZE);
-            
+
             done = mavlink::mavlink_parse_msg_0(recv_buf, recv_bytes, &mavlink_msg, &status);
             if (done)
             {

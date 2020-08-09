@@ -23,17 +23,17 @@ int main()
 
     this_thread::sleep_for(chrono::seconds(1));
 
-    mavlink::actuator::msg::HEARTBEAT headbeat;
+    mavlink::actuator::msg::HEARTBEAT heartbeat;
     mavlink::mavlink_message_t msg;
     mavlink::MsgMap msg_map(msg);
 
     uint8_t buf[1500];
-    headbeat.serialize(msg_map);
+    heartbeat.serialize(msg_map);
     mavlink::mavlink_finalize_message(
         &msg, 1, 1,
-        headbeat.MIN_LENGTH,
-        headbeat.LENGTH,
-        headbeat.CRC_EXTRA);
+        heartbeat.MIN_LENGTH,
+        heartbeat.LENGTH,
+        heartbeat.CRC_EXTRA);
     int msg_len = mavlink::mavlink_msg_to_send_buffer(buf, &msg);
     udp_client.send(buf, msg_len);
 

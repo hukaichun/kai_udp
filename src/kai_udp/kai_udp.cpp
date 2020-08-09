@@ -19,12 +19,10 @@ namespace KAI
         close(_fd);
     }
 
-    bool UDP::check_valid()
+    const bool& UDP::check_valid()
     {
         return _is_valid;
     }
-
-
 
     ssize_t UDP::send(const void *msg, int msg_len)
     {

@@ -10,10 +10,10 @@ namespace mavlink
 
     const mavlink_msg_entry_t *mavlink_get_msg_entry(uint32_t msgid);
 
-    MAVLINK_HELPER 
-    uint8_t mavlink_parse_msg_0(
-        uint8_t *buf, uint16_t buf_len,
-        mavlink_message_t *msg, mavlink_status_t *status)
+    MAVLINK_HELPER
+        uint8_t mavlink_parse_msg_0(
+            uint8_t *buf, uint16_t buf_len,
+            mavlink_message_t *msg, mavlink_status_t *status)
     {
         uint8_t done = 0;
         for (uint16_t i = 0; i < buf_len; ++i)
@@ -27,5 +27,11 @@ namespace mavlink
         }
         return done;
     }
+
+    class MsgHandlerBase
+    {
+    public:
+        inline bool Handle_Msg(const mavlink_message_t& ){return false;};
+    };
 
 } // namespace mavlink

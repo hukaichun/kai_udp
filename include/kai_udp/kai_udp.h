@@ -28,7 +28,7 @@ namespace KAI
         UDP() = delete;
         UDP(const char *IP, int port);
         virtual ~UDP();
-        bool check_valid();
+        const bool& check_valid();
 
         inline bool register_partner(const char* IP, int port)
         {
