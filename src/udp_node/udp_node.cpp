@@ -49,25 +49,7 @@ namespace KAI
             if (done)
             {
                 cout << "recv data, msgid: " << mavlink_msg.msgid << endl;
-
-                mavlink::actuator::MESSAGE_TYPE msg_type = static_cast<mavlink::actuator::MESSAGE_TYPE>(mavlink_msg.msgid);
-
-                switch (msg_type)
-                {
-                case mavlink::actuator::MESSAGE_TYPE::HEARTBEAT:
-                    if (register_partner(this->_partner_from))
-                    {
-                        cout << "add partner : " << str(_partner_from.sock) << endl;
-                    }
-                    else
-                    {
-                        cout << "partner exist" << endl;
-                    }
-                    break;
-
-                default:
-                    break;
-                }
+                msg_handler_->Handle_Msg(mavlink_msg);
             }
         }
     }

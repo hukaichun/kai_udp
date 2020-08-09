@@ -8,6 +8,10 @@
 #include <condition_variable>
 #include <thread>
 
+
+#include <iostream>
+
+
 namespace KAI
 {
     namespace Schedule
@@ -18,7 +22,7 @@ namespace KAI
         class LetterBase
         {
         public:
-            inline uint16_t SetMessage(uint8_t *buf){return 0;};
+            virtual uint16_t SetMessage(uint8_t *buf) = 0;
         };
 
         /**
@@ -33,12 +37,15 @@ namespace KAI
         class Letter_CRTP : public LetterBase
         {
         public:
-            uint16_t SetMessage(uint8_t *buf)
+            uint16_t SetMessage(uint8_t *buf) final
             {
                 return static_cast<T *>(this)->SetMessage_Impl(buf);
             }
 
-            inline uint16_t SetMessage_Impl(uint8_t *buf){return 0;};
+            inline uint16_t SetMessage_Impl(uint8_t *buf) {
+                std::cout << "Default Impl, do nothing" << std::endl;
+                return 0;
+            };
 
         private:
             Letter_CRTP() {}
@@ -56,7 +63,9 @@ namespace KAI
             ~ScheduleBase();
 
             int Push(Letter_ptr letter_ptr);
-            inline void execute_task(Letter_ptr){
+
+        protected:
+            inline void execute_task(Letter_ptr) {
                 throw std::string("Not Implementation Error!");
                 return;
             }

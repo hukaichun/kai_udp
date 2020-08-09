@@ -31,7 +31,13 @@ namespace mavlink
     class MsgHandlerBase
     {
     public:
-        inline bool Handle_Msg(const mavlink_message_t& ){return false;};
+        inline bool Handle_Msg(const mavlink_message_t& mavlink_msg) {
+            std::cout << "recv data" << std::endl
+                      << "\t msgid: " << mavlink_msg.msgid << std::endl
+                      << "\t system: " << +mavlink_msg.sysid << std::endl
+                      << "\t comp: " << +mavlink_msg.compid << std::endl;
+            return true;
+        };
     };
 
 } // namespace mavlink
