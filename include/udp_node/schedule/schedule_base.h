@@ -64,13 +64,9 @@ namespace KAI
 
             int Push(Letter_ptr letter_ptr);
 
-        protected:
-            inline void execute_task(Letter_ptr) {
-                throw std::string("Not Implementation Error!");
-                return;
-            }
-
         private:
+            virtual void execute_task(Letter_ptr) = 0;
+
             void main_loop();
 
             std::queue<Letter_ptr> schedule_;

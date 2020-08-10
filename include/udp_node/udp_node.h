@@ -21,8 +21,7 @@ namespace KAI
 
     private:
         uint8_t send_buf[PACK_SIZE];
-        void execute_task(Schedule::Letter_ptr);
-
+        virtual void execute_task(Schedule::Letter_ptr) final;
         void recv_loop();
         std::thread recv_thr_;
         bool should_stop_ = false;

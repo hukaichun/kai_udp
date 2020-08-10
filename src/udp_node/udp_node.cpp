@@ -36,21 +36,11 @@ namespace KAI
     void UDP_NODE::recv_loop()
     {
         uint8_t recv_buf[PACK_SIZE];
-        mavlink::mavlink_message_t mavlink_msg;
-        mavlink::mavlink_status_t status;
-
-        bool done = false;
 
         while (!should_stop_)
         {
-            uint16_t recv_bytes = this->recv(recv_buf, PACK_SIZE);
-
-            done = mavlink::mavlink_parse_msg_0(recv_buf, recv_bytes, &mavlink_msg, &status);
-            if (done)
-            {
-                cout << "recv data, msgid: " << mavlink_msg.msgid << endl;
-                msg_handler_->Handle_Msg(mavlink_msg);
-            }
+            ssize_t recv_bytes = this->recv(recv_buf, PACK_SIZE);
+            msg_handler_->Handle_Msg(recv_buf, recv_bytes);
         }
     }
 } // namespace KAI

@@ -24,4 +24,30 @@ namespace mavlink
         }
         return msg_entry_map[msgid];
     }
+
+    bool MsgHandlerBase::Handle_Msg(uint8_t *buf, int buf_len) {
+        bool done = false;
+
+        done = parse_msg(buf, buf_len);
+
+        if (done)
+        {
+            printf(
+                "Recv Mavlink Msg: \n"
+                "\t msgid: %3d \n"
+                "\t sysid: %3d \n"
+                "\t compid:%3d \n",
+                mavlink_msg_.msgid,
+                +mavlink_msg_.sysid,
+                +mavlink_msg_.compid
+            );
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 } // namespace mavlink
