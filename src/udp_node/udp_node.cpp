@@ -1,20 +1,22 @@
 #include "udp_node/udp_node.h"
 
+#include <utility>
+
 #include <iostream>
 using namespace std;
 
 namespace KAI
 {
     UDP_NODE::UDP_NODE(int port,
-        std::shared_ptr<mavlink::MsgHandlerBase> handler) :
+        std::unique_ptr<mavlink::MsgHandlerBase> handler) :
         UDP("0.0.0.0", port),
         Schedule::ScheduleBase(),
-        msg_handler_(handler)
+        msg_handler_(std::move(handler))
     {
         recv_thr_ = std::thread(&UDP_NODE::recv_loop, this);
-        if (!msg_handler_)
+        if (!handler)
         {
-            msg_handler_  = std::make_shared<mavlink::MsgHandlerBase>();
+            msg_handler_.reset(new mavlink::MsgHandlerBase);
         }
     }
 

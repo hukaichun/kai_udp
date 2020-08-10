@@ -48,7 +48,7 @@ namespace KAI
             };
 
         private:
-            Letter_CRTP() {}
+            Letter_CRTP() = default;
             friend T;
         };
 

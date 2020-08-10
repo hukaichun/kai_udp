@@ -4,8 +4,13 @@ project(UDP_NODE)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+# mavlink_msg
 add_subdirectory(src/mavlink)
+
+# kai_udp
 add_subdirectory(src/kai_udp)
+
+# udp_node
 add_subdirectory(src/udp_node)
 
 
