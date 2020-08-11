@@ -62,14 +62,15 @@ namespace KAI
             ScheduleBase();
             ~ScheduleBase();
 
-            int Push(Letter_ptr letter_ptr);
+            std::size_t Push(Letter_ptr letter_ptr);
+        
+        protected:
+            std::queue<Letter_ptr> schedule_;
 
         private:
             virtual void execute_task(Letter_ptr) = 0;
 
             void main_loop();
-
-            std::queue<Letter_ptr> schedule_;
 
             std::mutex lock;
             std::condition_variable CV;

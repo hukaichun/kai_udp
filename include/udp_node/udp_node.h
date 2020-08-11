@@ -35,6 +35,8 @@ namespace KAI
         void recv_loop();
         std::thread recv_thr_;
         bool should_stop_ = false;
+
+        
         std::unique_ptr<mavlink::MsgHandlerBase> msg_handler_;
     };
 }

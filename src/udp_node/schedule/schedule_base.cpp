@@ -19,7 +19,7 @@ namespace KAI
             if(main_loop_thr.joinable()) main_loop_thr.join();
         }
 
-        int ScheduleBase::Push(Letter_ptr Letter_ptr)
+        std::size_t ScheduleBase::Push(Letter_ptr Letter_ptr)
         {
             schedule_.push(Letter_ptr);
             CV.notify_one();
