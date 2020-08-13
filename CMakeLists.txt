@@ -7,7 +7,6 @@ set(MAVLINK_OPTION --lang=C++11 --wire-protocol=2.0)
 set(MAVLINK_OUTPUT ${PROJECT_SOURCE_DIR}/include/mavlink/msg)
 set(MAVLINK_MSG_DEFINITION ${PROJECT_SOURCE_DIR}/msg_definition/actuator.xml)
 
-message(STATUS "UDP_NODE_DIR : " ${PROJECT_SOURCE_DIR})
 execute_process(
     COMMAND python3 ${MAVLINK_GENERATOR} ${MAVLINK_OPTION} --output=${MAVLINK_OUTPUT} ${MAVLINK_MSG_DEFINITION}
 )
