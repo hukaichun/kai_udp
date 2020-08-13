@@ -24,19 +24,14 @@ namespace KAI
          */
     public:
         UDP_NODE() = delete;
-        UDP_NODE(
-            int port,
-            std::unique_ptr<mavlink::MsgHandlerBase> handler = nullptr);
-        ~UDP_NODE();
+        UDP_NODE(int port);
+        virtual ~UDP_NODE() = default;
+
 
     private:
         uint8_t send_buf[PACK_SIZE];
         virtual void execute_task(Schedule::Letter_ptr) final;
-        void recv_loop();
-        std::thread recv_thr_;
         bool should_stop_ = false;
-
         
-        std::unique_ptr<mavlink::MsgHandlerBase> msg_handler_;
     };
 }

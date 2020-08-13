@@ -60,8 +60,9 @@ namespace KAI
         {
         public:
             ScheduleBase();
-            ~ScheduleBase();
+            virtual ~ScheduleBase();
 
+            
             std::size_t Push(Letter_ptr letter_ptr);
         
         protected:

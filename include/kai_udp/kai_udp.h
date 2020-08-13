@@ -44,17 +44,20 @@ namespace KAI
         ssize_t send(const void *msg, int msg_len);
         int recv(void *buf,
                  int buf_len,
-                 sockaddr_in *from = nullptr);
+                 UDP_PARTNER *from = nullptr);
 
     protected:
         AddressBook _address_book;
         UDP_PARTNER _partner_from;
         socklen_t _partnerlen;
 
-    private:
         int _fd;
-        sockaddr_in _info;
         bool _is_valid;
+
+    private:
+        sockaddr_in _info;
+
+
     };
    
 

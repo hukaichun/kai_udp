@@ -22,6 +22,14 @@ namespace KAI
         return info;
     }
 
+    SOCKET_HELPER std::string str(const char *IP, int port)
+    {
+        char buf[128];
+        memset(buf, 0, 128);
+        sprintf(buf, "%s:%d", IP, port);
+        return std::string(buf);
+    }
+
     SOCKET_HELPER std::string str(const sockaddr_in &sock)
     {
         char ip[INET_ADDRSTRLEN];
@@ -32,22 +40,8 @@ namespace KAI
         inet_ntop(AF_INET, &(sock.sin_addr), ip, INET_ADDRSTRLEN);
         port = ntohs(sock.sin_port);
 
-        char buf[128];
-        memset(buf, 0, 128);
-        sprintf(buf, "%s:%d", ip, port);
-        return std::string(buf);
-
-        // return str(ip, port);
+        return str(ip, port);
     }
-
-    SOCKET_HELPER std::string str(const char* IP, int port)
-    {
-        char buf[128];
-        memset(buf, 0, 128);
-        sprintf(buf, "%s:%d", IP, port);
-        return std::string(buf);
-    }
-
 
     /**
      * member: clock_t timestemp

@@ -43,7 +43,7 @@ namespace KAI
         return num;
     }
 
-    int UDP::recv(void *buf, int buf_len, sockaddr_in *from)
+    int UDP::recv(void *buf, int buf_len, UDP_PARTNER *from)
     {
         static socklen_t partnerlen = sizeof(_partner_from.sock);
         static int nbytes = 0;
@@ -57,7 +57,7 @@ namespace KAI
 
         if (from)
         {
-            memcpy(from, &_partner_from, partnerlen);
+            memcpy(from, &_partner_from, sizeof(_partner_from));
         }
 
         return nbytes;

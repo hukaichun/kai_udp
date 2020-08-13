@@ -30,7 +30,6 @@ namespace mavlink
     class MsgHandlerBase
     {
     public:
-        virtual bool Handle_Msg(uint8_t *buf, int buf_len);
 
         inline uint8_t parse_msg(
             uint8_t *buf, int buf_len,

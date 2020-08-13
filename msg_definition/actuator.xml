@@ -47,11 +47,18 @@
     </message>
 
     <message id="3" name="COMMAND">
-      <description>Servo State</description>
+      <description>Command</description>
       <field type="uint8_t" name="ID">ID</field>
       <field type="uint64_t" name="timestamp">timestamp</field>
       <field type="float" name="GoalPosition">GoalPosition</field>
       <field type="float" name="MovingSpeed">MovingSpeed</field>
     </message>
+
+    <message id="4" name="ACTION">
+      <description>Action</description>
+      <!-- <field type="uint64_t" name="timestamp">timestamp</field> -->
+    </message>
+
+
   </messages>
 </mavlink>
