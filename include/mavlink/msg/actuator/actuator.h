@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
 #ifndef MAVLINK_MESSAGE_CRCS
-#define MAVLINK_MESSAGE_CRCS {{0, 92, 8, 8, 0, 0, 0}, {1, 251, 5, 5, 0, 0, 0}, {2, 81, 33, 33, 0, 0, 0}, {3, 168, 17, 17, 0, 0, 0}}
+#define MAVLINK_MESSAGE_CRCS {{0, 92, 8, 8, 0, 0, 0}, {1, 251, 5, 5, 0, 0, 0}, {2, 81, 33, 33, 0, 0, 0}, {3, 168, 17, 17, 0, 0, 0}, {4, 176, 0, 0, 0, 0, 0}}
 #endif
 
 #include "../protocol.h"
@@ -63,6 +63,7 @@ typedef enum MESSAGE_TYPE
 #include "./mavlink_msg_setting.h"
 #include "./mavlink_msg_servo_state.h"
 #include "./mavlink_msg_command.h"
+#include "./mavlink_msg_action.h"
 
 // base include
 
@@ -71,8 +72,8 @@ typedef enum MESSAGE_TYPE
 #define MAVLINK_THIS_XML_IDX 0
 
 #if MAVLINK_THIS_XML_IDX == MAVLINK_PRIMARY_XML_IDX
-# define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_HEARTBEAT, MAVLINK_MESSAGE_INFO_SETTING, MAVLINK_MESSAGE_INFO_SERVO_STATE, MAVLINK_MESSAGE_INFO_COMMAND}
-# define MAVLINK_MESSAGE_NAMES {{ "COMMAND", 3 }, { "HEARTBEAT", 0 }, { "SERVO_STATE", 2 }, { "SETTING", 1 }}
+# define MAVLINK_MESSAGE_INFO {MAVLINK_MESSAGE_INFO_HEARTBEAT, MAVLINK_MESSAGE_INFO_SETTING, MAVLINK_MESSAGE_INFO_SERVO_STATE, MAVLINK_MESSAGE_INFO_COMMAND, MAVLINK_MESSAGE_INFO_ACTION}
+# define MAVLINK_MESSAGE_NAMES {{ "ACTION", 4 }, { "COMMAND", 3 }, { "HEARTBEAT", 0 }, { "SERVO_STATE", 2 }, { "SETTING", 1 }}
 # if MAVLINK_COMMAND_24BIT
 #  include "../mavlink_get_info.h"
 # endif

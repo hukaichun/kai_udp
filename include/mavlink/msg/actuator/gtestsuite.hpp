@@ -298,3 +298,62 @@ TEST(actuator_interop, COMMAND)
 #endif
 }
 #endif
+
+TEST(actuator, ACTION)
+{
+    mavlink::mavlink_message_t msg;
+    mavlink::MsgMap map1(msg);
+    mavlink::MsgMap map2(msg);
+
+    mavlink::actuator::msg::ACTION packet_in{};
+
+
+    mavlink::actuator::msg::ACTION packet1{};
+    mavlink::actuator::msg::ACTION packet2{};
+
+    packet1 = packet_in;
+
+    //std::cout << packet1.to_yaml() << std::endl;
+
+    packet1.serialize(map1);
+
+    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
+
+    packet2.deserialize(map2);
+
+
+}
+
+#ifdef TEST_INTEROP
+TEST(actuator_interop, ACTION)
+{
+    mavlink_message_t msg;
+
+    // to get nice print
+    memset(&msg, 0, sizeof(msg));
+
+    mavlink_action_t packet_c {
+        
+    };
+
+    mavlink::actuator::msg::ACTION packet_in{};
+
+
+    mavlink::actuator::msg::ACTION packet2{};
+
+    mavlink_msg_action_encode(1, 1, &msg, &packet_c);
+
+    // simulate message-handling callback
+    [&packet2](const mavlink_message_t *cmsg) {
+        MsgMap map2(cmsg);
+
+        packet2.deserialize(map2);
+    } (&msg);
+
+
+
+#ifdef PRINT_MSG
+    PRINT_MSG(msg);
+#endif
+}
+#endif

@@ -21,7 +21,7 @@ namespace actuator {
 /**
  * Array of msg_entry needed for @p mavlink_parse_char() (trought @p mavlink_get_msg_entry())
  */
-constexpr std::array<mavlink_msg_entry_t, 4> MESSAGE_ENTRIES {{ {0, 92, 8, 8, 0, 0, 0}, {1, 251, 5, 5, 0, 0, 0}, {2, 81, 33, 33, 0, 0, 0}, {3, 168, 17, 17, 0, 0, 0} }};
+constexpr std::array<mavlink_msg_entry_t, 5> MESSAGE_ENTRIES {{ {0, 92, 8, 8, 0, 0, 0}, {1, 251, 5, 5, 0, 0, 0}, {2, 81, 33, 33, 0, 0, 0}, {3, 168, 17, 17, 0, 0, 0}, {4, 176, 0, 0, 0, 0, 0} }};
 
 //! MAVLINK VERSION
 constexpr auto MAVLINK_VERSION = 0;
@@ -51,6 +51,7 @@ constexpr auto MESSAGE_TYPE_ENUM_END = 4;
 #include "./mavlink_msg_setting.hpp"
 #include "./mavlink_msg_servo_state.hpp"
 #include "./mavlink_msg_command.hpp"
+#include "./mavlink_msg_action.hpp"
 
 // base include
 

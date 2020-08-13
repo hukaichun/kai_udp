@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <mavlink>
   <version>0</version>
-  <dialect>9487</dialect>
+  <dialect>87</dialect>
 
   <enums>
     <enum name="MESSAGE_TYPE">

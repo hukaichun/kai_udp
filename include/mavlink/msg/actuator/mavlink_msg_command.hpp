@@ -9,7 +9,7 @@ namespace msg {
 /**
  * @brief COMMAND message
  *
- * Servo State
+ * Command
  */
 struct COMMAND : mavlink::Message {
     static constexpr msgid_t MSG_ID = 3;
