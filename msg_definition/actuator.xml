@@ -6,35 +6,59 @@
   <enums>
     <enum name="MESSAGE_TYPE">
       <description>message type</description>
-      <entry value="0" name="MESSAGE_TYPE_HEARTBEAT">
-        <description>heartbeat</description>
-      </entry>
-      <entry value="1" name="MESSAGE_TYPE_SETTING">
-        <description>setting the servo</description>
-      </entry>
-      <entry value="2" name="MESSAGE_TYPE_SERVO_STATE">
+
+      <entry value="0" name="MESSAGE_TYPE_SERVO_STATE">
         <description>servo state</description>
       </entry>
-      <entry value="3" name="MESSAGE_TYPE_COMMAND">
+
+      <entry value="1" name="MESSAGE_TYPE_HEARTBEAT">
+        <description>heartbeat</description>
+      </entry>
+
+      <entry value="3" name="MESSAGE_TYPE_SETTING">
+        <description>setting the servo</description>
+      </entry>
+
+      <entry value="4" name="MESSAGE_TYPE_SETTING_ACK">
+        <description>setting the servo ack</description>
+      </entry>
+
+      <entry value="5" name="MESSAGE_TYPE_COMMAND">
         <description>command for servo</description>
+      </entry>
+
+      <entry value="6" name="MESSAGE_TYPE_COMMAND_ACK">
+        <description>command for servo ack</description>
+      </entry>
+
+      <entry value="7" name="MESSAGE_TYPE_ACTION">
+        <description>action</description>
+      </entry>
+
+      <entry value="8" name="MESSAGE_TYPE_ACTION_ACK">
+        <description>action ack</description>
+      </entry>
+    </enum>
+
+
+    <enum name="ACK_STATUS_TYPE">
+      <description>ACK STATUS TYPE</description>
+      <entry value="0" name="ACK_STATUS_TYPE_OK">
+        <description>OK</description>
+      </entry>
+
+      <entry value="1" name="ACK_STATUS_TYPE_ID_NOT_EXIST">
+        <description>id not exist</description>
+      </entry>
+
+      <entry value="2" name="ACK_STATUS_TYPE_OUT_OF_RANGE">
+        <description>out of range</description>
       </entry>
     </enum>
   </enums>
 
   <messages>
-    <message id="0" name="HEARTBEAT">
-      <description>Servo State</description>
-      <field type="uint64_t" name="timestamp">timestamp</field>
-    </message>
-
-    <message id="1" name="SETTING">
-      <description>Setting Servo</description>
-      <field type="uint8_t" name="ID">ID</field>
-      <field type="int16_t" name="DIR"> Rotation Direction </field>
-      <field type="uint16_t" name="ZERO"> Zero Position </field>
-    </message>
-
-    <message id="2" name="SERVO_STATE">
+    <message id="0" name="SERVO_STATE">
       <description>Servo State</description>
       <field type="uint8_t" name="ID">ID</field>
       <field type="uint64_t" name="timestamp">timestamp</field>
@@ -46,7 +70,30 @@
       <field type="uint32_t" name="PresentTemperature">PresentTemperature</field>
     </message>
 
-    <message id="3" name="COMMAND">
+    <message id="1" name="HEARTBEAT">
+      <description>Servo State</description>
+      <field type="uint64_t" name="timestamp">timestamp</field>
+    </message>
+
+    <message id="2" name="REGISTER_PARTNER">
+      <description>Servo State</description>
+      <field type="uint64_t" name="timestamp">timestamp</field>
+    </message>
+
+    <message id="3" name="SETTING">
+      <description>Setting Servo</description>
+      <field type="uint8_t" name="ID">ID</field>
+      <field type="int16_t" name="DIR"> Rotation Direction </field>
+      <field type="uint16_t" name="ZERO"> Zero Position </field>
+    </message>
+
+    <message id="4" name="SETTING_ACK">
+      <description>Setting Servo</description>
+      <field type="uint8_t" name="ID">ID</field>
+      <field type="uint8_t" name="STATUS">Setting status</field>
+    </message>
+
+    <message id="5" name="COMMAND">
       <description>Command</description>
       <field type="uint8_t" name="ID">ID</field>
       <field type="uint64_t" name="timestamp">timestamp</field>
@@ -54,9 +101,19 @@
       <field type="float" name="MovingSpeed">MovingSpeed</field>
     </message>
 
-    <message id="4" name="ACTION">
+    <message id="6" name="COMMAND_ACK">
+      <description>Command ack</description>
+      <field type="uint8_t" name="ID">ID</field>
+      <field type="uint8_t" name="STATUS">Setting status</field>
+    </message>
+
+    <message id="7" name="ACTION">
       <description>Action</description>
-      <!-- <field type="uint64_t" name="timestamp">timestamp</field> -->
+    </message>
+
+    <message id="8" name="ACTION_ACK">
+      <description>Action ack</description>
+      <field type="uint8_t" name="STATUS">Setting status</field>
     </message>
 
 

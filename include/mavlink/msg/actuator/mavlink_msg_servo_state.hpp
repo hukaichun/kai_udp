@@ -12,7 +12,7 @@ namespace msg {
  * Servo State
  */
 struct SERVO_STATE : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 2;
+    static constexpr msgid_t MSG_ID = 0;
     static constexpr size_t LENGTH = 33;
     static constexpr size_t MIN_LENGTH = 33;
     static constexpr uint8_t CRC_EXTRA = 81;

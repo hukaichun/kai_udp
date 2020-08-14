@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE SETTING PACKING
 
-#define MAVLINK_MSG_ID_SETTING 1
+#define MAVLINK_MSG_ID_SETTING 3
 
 
 typedef struct __mavlink_setting_t {
@@ -12,17 +12,17 @@ typedef struct __mavlink_setting_t {
 
 #define MAVLINK_MSG_ID_SETTING_LEN 5
 #define MAVLINK_MSG_ID_SETTING_MIN_LEN 5
-#define MAVLINK_MSG_ID_1_LEN 5
-#define MAVLINK_MSG_ID_1_MIN_LEN 5
+#define MAVLINK_MSG_ID_3_LEN 5
+#define MAVLINK_MSG_ID_3_MIN_LEN 5
 
 #define MAVLINK_MSG_ID_SETTING_CRC 251
-#define MAVLINK_MSG_ID_1_CRC 251
+#define MAVLINK_MSG_ID_3_CRC 251
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SETTING { \
-    1, \
+    3, \
     "SETTING", \
     3, \
     {  { "ID", NULL, MAVLINK_TYPE_UINT8_T, 0, 4, offsetof(mavlink_setting_t, ID) }, \

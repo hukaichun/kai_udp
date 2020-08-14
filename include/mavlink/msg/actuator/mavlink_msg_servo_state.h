@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE SERVO_STATE PACKING
 
-#define MAVLINK_MSG_ID_SERVO_STATE 2
+#define MAVLINK_MSG_ID_SERVO_STATE 0
 
 
 typedef struct __mavlink_servo_state_t {
@@ -17,17 +17,17 @@ typedef struct __mavlink_servo_state_t {
 
 #define MAVLINK_MSG_ID_SERVO_STATE_LEN 33
 #define MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN 33
-#define MAVLINK_MSG_ID_2_LEN 33
-#define MAVLINK_MSG_ID_2_MIN_LEN 33
+#define MAVLINK_MSG_ID_0_LEN 33
+#define MAVLINK_MSG_ID_0_MIN_LEN 33
 
 #define MAVLINK_MSG_ID_SERVO_STATE_CRC 81
-#define MAVLINK_MSG_ID_2_CRC 81
+#define MAVLINK_MSG_ID_0_CRC 81
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_SERVO_STATE { \
-    2, \
+    0, \
     "SERVO_STATE", \
     8, \
     {  { "ID", NULL, MAVLINK_TYPE_UINT8_T, 0, 32, offsetof(mavlink_servo_state_t, ID) }, \

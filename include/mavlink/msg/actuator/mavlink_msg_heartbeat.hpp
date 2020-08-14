@@ -12,7 +12,7 @@ namespace msg {
  * Servo State
  */
 struct HEARTBEAT : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 0;
+    static constexpr msgid_t MSG_ID = 1;
     static constexpr size_t LENGTH = 8;
     static constexpr size_t MIN_LENGTH = 8;
     static constexpr uint8_t CRC_EXTRA = 92;

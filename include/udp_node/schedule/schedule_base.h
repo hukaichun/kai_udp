@@ -3,6 +3,7 @@
 #include <queue>
 #include <memory>
 #include <cstdint>
+#include <string>
 
 #include <mutex>
 #include <condition_variable>
@@ -22,7 +23,7 @@ namespace KAI
         class LetterBase
         {
         public:
-            virtual uint16_t SetMessage(uint8_t *buf) = 0;
+            virtual uint16_t SetMessage(uint8_t *buf, std::string* addr) = 0;
         };
 
         /**
@@ -37,12 +38,13 @@ namespace KAI
         class Letter_CRTP : public LetterBase
         {
         public:
-            uint16_t SetMessage(uint8_t *buf) final
+            uint16_t SetMessage(uint8_t *buf, std::string* addr) final
             {
-                return static_cast<T *>(this)->SetMessage_Impl(buf);
+                return static_cast<T *>(this)->SetMessage_Impl(buf, addr);
             }
 
-            inline uint16_t SetMessage_Impl(uint8_t *buf) {
+            inline uint16_t SetMessage_Impl(uint8_t *buf, std::string* addr) {
+                addr = nullptr;
                 std::cout << "Default Impl, do nothing" << std::endl;
                 return 0;
             };

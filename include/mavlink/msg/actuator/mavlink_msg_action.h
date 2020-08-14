@@ -1,7 +1,7 @@
 #pragma once
 // MESSAGE ACTION PACKING
 
-#define MAVLINK_MSG_ID_ACTION 4
+#define MAVLINK_MSG_ID_ACTION 7
 
 
 typedef struct __mavlink_action_t {
@@ -10,17 +10,17 @@ typedef struct __mavlink_action_t {
 
 #define MAVLINK_MSG_ID_ACTION_LEN 0
 #define MAVLINK_MSG_ID_ACTION_MIN_LEN 0
-#define MAVLINK_MSG_ID_4_LEN 0
-#define MAVLINK_MSG_ID_4_MIN_LEN 0
+#define MAVLINK_MSG_ID_7_LEN 0
+#define MAVLINK_MSG_ID_7_MIN_LEN 0
 
 #define MAVLINK_MSG_ID_ACTION_CRC 176
-#define MAVLINK_MSG_ID_4_CRC 176
+#define MAVLINK_MSG_ID_7_CRC 176
 
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_ACTION { \
-    4, \
+    7, \
     "ACTION", \
     0, \
     {  } \

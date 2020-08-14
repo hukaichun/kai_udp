@@ -1,4 +1,4 @@
-// MESSAGE ACTION support class
+// MESSAGE ACTION_ACK support class
 
 #pragma once
 
@@ -7,19 +7,19 @@ namespace actuator {
 namespace msg {
 
 /**
- * @brief ACTION message
+ * @brief ACTION_ACK message
  *
- * Action
+ * Action ack
  */
-struct ACTION : mavlink::Message {
-    static constexpr msgid_t MSG_ID = 7;
-    static constexpr size_t LENGTH = 0;
-    static constexpr size_t MIN_LENGTH = 0;
-    static constexpr uint8_t CRC_EXTRA = 176;
-    static constexpr auto NAME = "ACTION";
+struct ACTION_ACK : mavlink::Message {
+    static constexpr msgid_t MSG_ID = 8;
+    static constexpr size_t LENGTH = 1;
+    static constexpr size_t MIN_LENGTH = 1;
+    static constexpr uint8_t CRC_EXTRA = 227;
+    static constexpr auto NAME = "ACTION_ACK";
 
 
-
+    uint8_t STATUS; /*<  Setting status */
 
 
     inline std::string get_name(void) const override
@@ -37,7 +37,7 @@ struct ACTION : mavlink::Message {
         std::stringstream ss;
 
         ss << NAME << ":" << std::endl;
-
+        ss << "  STATUS: " << +STATUS << std::endl;
 
         return ss.str();
     }
@@ -46,12 +46,12 @@ struct ACTION : mavlink::Message {
     {
         map.reset(MSG_ID, LENGTH);
 
-
+        map << STATUS;                        // offset: 0
     }
 
     inline void deserialize(mavlink::MsgMap &map) override
     {
-
+        map >> STATUS;                        // offset: 0
     }
 };
 

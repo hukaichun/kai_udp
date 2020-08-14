@@ -42,6 +42,7 @@ namespace KAI
 
 
         ssize_t send(const void *msg, int msg_len);
+        ssize_t send_to(const void *msg, int msg_len, const std::string& partner_id);
         int recv(void *buf,
                  int buf_len,
                  UDP_PARTNER *from = nullptr);

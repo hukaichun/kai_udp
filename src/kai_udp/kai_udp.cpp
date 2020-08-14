@@ -3,8 +3,6 @@
 namespace KAI
 {
 
-
-
     UDP::UDP(const char *IP, int port) : _fd(socket(AF_INET, SOCK_DGRAM, 0)),
                                          _info(get_sockaddr(IP, port)),
                                          _is_valid(false)
@@ -19,7 +17,7 @@ namespace KAI
         close(_fd);
     }
 
-    const bool& UDP::check_valid()
+    const bool &UDP::check_valid()
     {
         return _is_valid;
     }
@@ -29,7 +27,7 @@ namespace KAI
         int num = 0, bytes = 0;
         for (const auto &x : _address_book)
         {
-            const UDP_PARTNER& partner = x.second; // alias of udp_partner  
+            const UDP_PARTNER &partner = x.second; // alias of udp_partner
             bytes = sendto(
                 _fd,
                 msg, msg_len,
@@ -39,8 +37,17 @@ namespace KAI
             if (bytes > 0)
                 num += 1;
         }
-
         return num;
+    }
+
+    ssize_t UDP::send_to(const void *msg, int msg_len, const std::string &partner_id)
+    {
+        const UDP_PARTNER &partner = _address_book[partner_id];
+        return sendto(
+            _fd,
+            msg, msg_len,
+            0,
+            (sockaddr *)&(partner.sock), sizeof(partner));
     }
 
     int UDP::recv(void *buf, int buf_len, UDP_PARTNER *from)

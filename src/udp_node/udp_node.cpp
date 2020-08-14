@@ -14,7 +14,8 @@ namespace KAI
 
     void UDP_NODE::execute_task(Schedule::Letter_ptr letter_ptr)
     {
-        auto bytes = letter_ptr->SetMessage(send_buf);
+        std::string* addr;
+        auto bytes = letter_ptr->SetMessage(send_buf, addr);
         send(send_buf, bytes);
     }
 
