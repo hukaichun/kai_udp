@@ -32,4 +32,15 @@ namespace KAI
             return false;
         }
     }
+
+    bool AddressBook::update(const UDP_PARTNER &partner)
+    {
+        auto name = str(partner.sock);
+        if(this->count(name))
+        {
+            (*this)[name].timestemp = partner.timestemp;
+            return true;
+        }
+        return false;
+    }
 } // namespace KAI

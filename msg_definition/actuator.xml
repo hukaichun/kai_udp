@@ -15,6 +15,10 @@
         <description>heartbeat</description>
       </entry>
 
+      <entry value="2" name="MESSAGE_TYPE_REGISTER_PARTNER">
+        <description>heartbeat</description>
+      </entry>
+
       <entry value="3" name="MESSAGE_TYPE_SETTING">
         <description>setting the servo</description>
       </entry>
@@ -76,8 +80,13 @@
     </message>
 
     <message id="2" name="REGISTER_PARTNER">
-      <description>Servo State</description>
+      <description>REGISTER PARTNER</description>
       <field type="uint64_t" name="timestamp">timestamp</field>
+      <field type="uint16_t" name="ip_0">ip</field>
+      <field type="uint16_t" name="ip_1">ip</field>
+      <field type="uint16_t" name="ip_2">ip</field>
+      <field type="uint16_t" name="ip_3">ip</field>
+      <field type="uint32_t" name="port">port</field>
     </message>
 
     <message id="3" name="SETTING">

@@ -169,6 +169,11 @@ TEST(actuator, REGISTER_PARTNER)
 
     mavlink::actuator::msg::REGISTER_PARTNER packet_in{};
     packet_in.timestamp = 93372036854775807ULL;
+    packet_in.ip_0 = 17859;
+    packet_in.ip_1 = 17963;
+    packet_in.ip_2 = 18067;
+    packet_in.ip_3 = 18171;
+    packet_in.port = 963497880;
 
     mavlink::actuator::msg::REGISTER_PARTNER packet1{};
     mavlink::actuator::msg::REGISTER_PARTNER packet2{};
@@ -184,6 +189,11 @@ TEST(actuator, REGISTER_PARTNER)
     packet2.deserialize(map2);
 
     EXPECT_EQ(packet1.timestamp, packet2.timestamp);
+    EXPECT_EQ(packet1.ip_0, packet2.ip_0);
+    EXPECT_EQ(packet1.ip_1, packet2.ip_1);
+    EXPECT_EQ(packet1.ip_2, packet2.ip_2);
+    EXPECT_EQ(packet1.ip_3, packet2.ip_3);
+    EXPECT_EQ(packet1.port, packet2.port);
 }
 
 #ifdef TEST_INTEROP
@@ -195,11 +205,16 @@ TEST(actuator_interop, REGISTER_PARTNER)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_register_partner_t packet_c {
-         93372036854775807ULL
+         93372036854775807ULL, 963497880, 17859, 17963, 18067, 18171
     };
 
     mavlink::actuator::msg::REGISTER_PARTNER packet_in{};
     packet_in.timestamp = 93372036854775807ULL;
+    packet_in.ip_0 = 17859;
+    packet_in.ip_1 = 17963;
+    packet_in.ip_2 = 18067;
+    packet_in.ip_3 = 18171;
+    packet_in.port = 963497880;
 
     mavlink::actuator::msg::REGISTER_PARTNER packet2{};
 
@@ -213,6 +228,11 @@ TEST(actuator_interop, REGISTER_PARTNER)
     } (&msg);
 
     EXPECT_EQ(packet_in.timestamp, packet2.timestamp);
+    EXPECT_EQ(packet_in.ip_0, packet2.ip_0);
+    EXPECT_EQ(packet_in.ip_1, packet2.ip_1);
+    EXPECT_EQ(packet_in.ip_2, packet2.ip_2);
+    EXPECT_EQ(packet_in.ip_3, packet2.ip_3);
+    EXPECT_EQ(packet_in.port, packet2.port);
 
 #ifdef PRINT_MSG
     PRINT_MSG(msg);

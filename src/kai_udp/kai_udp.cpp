@@ -50,6 +50,14 @@ namespace KAI
             (sockaddr *)&(partner.sock), sizeof(partner));
     }
 
+    ssize_t UDP::send_to(const void *msg, int msg_len, const char* ip, uint32_t port)
+    {
+        char buf[64];
+        sprintf(buf, "%s:%d", ip, port);
+        std::string partner_id = buf;
+        return send_to(msg, msg_len, partner_id);
+    }
+
     int UDP::recv(void *buf, int buf_len, UDP_PARTNER *from)
     {
         static socklen_t partnerlen = sizeof(_partner_from.sock);

@@ -39,7 +39,7 @@ namespace mavlink
                 +mavlink_msg_.sysid, +mavlink_msg_.compid, +mavlink_msg_.len, +mavlink_msg_.msgid);
         }
 
-        inline uint8_t parse_msg(
+        inline bool parse_msg(
             uint8_t *buf, int buf_len,
             mavlink_channel_t chen = MAVLINK_COMM_1)
         {
@@ -54,7 +54,31 @@ namespace mavlink
                 if (done)
                     break;
             }
-            return done;
+
+            switch (done)
+            {
+            case mavlink::mavlink_framing_t::MAVLINK_FRAMING_INCOMPLETE:
+                printf("MAVLINK_FRAMING_INCOMPLETE\n");
+                break;
+
+            case mavlink::mavlink_framing_t::MAVLINK_FRAMING_OK:
+                return true;
+                break;
+
+            case mavlink::mavlink_framing_t::MAVLINK_FRAMING_BAD_CRC:
+                printf("BAD_CRC\n");
+                break;
+
+            case mavlink::mavlink_framing_t::MAVLINK_FRAMING_BAD_SIGNATURE:
+                printf("BAD SIGNATURE\n");
+                break;
+
+            default:
+                printf("Unknown Msg\n");
+                break;
+            }
+
+            return false;
         }
 
         inline uint16_t finalize_msg(

@@ -21,7 +21,7 @@ namespace actuator {
 /**
  * Array of msg_entry needed for @p mavlink_parse_char() (trought @p mavlink_get_msg_entry())
  */
-constexpr std::array<mavlink_msg_entry_t, 9> MESSAGE_ENTRIES {{ {0, 81, 33, 33, 0, 0, 0}, {1, 92, 8, 8, 0, 0, 0}, {2, 110, 8, 8, 0, 0, 0}, {3, 251, 5, 5, 0, 0, 0}, {4, 137, 2, 2, 0, 0, 0}, {5, 168, 17, 17, 0, 0, 0}, {6, 44, 2, 2, 0, 0, 0}, {7, 176, 0, 0, 0, 0, 0}, {8, 227, 1, 1, 0, 0, 0} }};
+constexpr std::array<mavlink_msg_entry_t, 9> MESSAGE_ENTRIES {{ {0, 81, 33, 33, 0, 0, 0}, {1, 92, 8, 8, 0, 0, 0}, {2, 151, 20, 20, 0, 0, 0}, {3, 251, 5, 5, 0, 0, 0}, {4, 137, 2, 2, 0, 0, 0}, {5, 168, 17, 17, 0, 0, 0}, {6, 44, 2, 2, 0, 0, 0}, {7, 176, 0, 0, 0, 0, 0}, {8, 227, 1, 1, 0, 0, 0} }};
 
 //! MAVLINK VERSION
 constexpr auto MAVLINK_VERSION = 0;
@@ -35,6 +35,7 @@ enum class MESSAGE_TYPE
 {
     SERVO_STATE=0, /* servo state | */
     HEARTBEAT=1, /* heartbeat | */
+    REGISTER_PARTNER=2, /* heartbeat | */
     SETTING=3, /* setting the servo | */
     SETTING_ACK=4, /* setting the servo ack | */
     COMMAND=5, /* command for servo | */

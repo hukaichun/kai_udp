@@ -152,11 +152,16 @@ static void mavlink_test_register_partner(uint8_t system_id, uint8_t component_i
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_register_partner_t packet_in = {
-        93372036854775807ULL
+        93372036854775807ULL,963497880,17859,17963,18067,18171
     };
     mavlink_register_partner_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         packet1.timestamp = packet_in.timestamp;
+        packet1.port = packet_in.port;
+        packet1.ip_0 = packet_in.ip_0;
+        packet1.ip_1 = packet_in.ip_1;
+        packet1.ip_2 = packet_in.ip_2;
+        packet1.ip_3 = packet_in.ip_3;
         
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
@@ -171,12 +176,12 @@ static void mavlink_test_register_partner(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_register_partner_pack(system_id, component_id, &msg , packet1.timestamp );
+    mavlink_msg_register_partner_pack(system_id, component_id, &msg , packet1.timestamp , packet1.ip_0 , packet1.ip_1 , packet1.ip_2 , packet1.ip_3 , packet1.port );
     mavlink_msg_register_partner_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_register_partner_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp );
+    mavlink_msg_register_partner_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.timestamp , packet1.ip_0 , packet1.ip_1 , packet1.ip_2 , packet1.ip_3 , packet1.port );
     mavlink_msg_register_partner_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -189,7 +194,7 @@ static void mavlink_test_register_partner(uint8_t system_id, uint8_t component_i
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_register_partner_send(MAVLINK_COMM_1 , packet1.timestamp );
+    mavlink_msg_register_partner_send(MAVLINK_COMM_1 , packet1.timestamp , packet1.ip_0 , packet1.ip_1 , packet1.ip_2 , packet1.ip_3 , packet1.port );
     mavlink_msg_register_partner_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 }

@@ -24,7 +24,7 @@ extern "C" {
 #endif
 
 #ifndef MAVLINK_MESSAGE_CRCS
-#define MAVLINK_MESSAGE_CRCS {{0, 81, 33, 33, 0, 0, 0}, {1, 92, 8, 8, 0, 0, 0}, {2, 110, 8, 8, 0, 0, 0}, {3, 251, 5, 5, 0, 0, 0}, {4, 137, 2, 2, 0, 0, 0}, {5, 168, 17, 17, 0, 0, 0}, {6, 44, 2, 2, 0, 0, 0}, {7, 176, 0, 0, 0, 0, 0}, {8, 227, 1, 1, 0, 0, 0}}
+#define MAVLINK_MESSAGE_CRCS {{0, 81, 33, 33, 0, 0, 0}, {1, 92, 8, 8, 0, 0, 0}, {2, 151, 20, 20, 0, 0, 0}, {3, 251, 5, 5, 0, 0, 0}, {4, 137, 2, 2, 0, 0, 0}, {5, 168, 17, 17, 0, 0, 0}, {6, 44, 2, 2, 0, 0, 0}, {7, 176, 0, 0, 0, 0, 0}, {8, 227, 1, 1, 0, 0, 0}}
 #endif
 
 #include "../protocol.h"
@@ -41,6 +41,7 @@ typedef enum MESSAGE_TYPE
 {
    MESSAGE_TYPE_SERVO_STATE=0, /* servo state | */
    MESSAGE_TYPE_HEARTBEAT=1, /* heartbeat | */
+   MESSAGE_TYPE_REGISTER_PARTNER=2, /* heartbeat | */
    MESSAGE_TYPE_SETTING=3, /* setting the servo | */
    MESSAGE_TYPE_SETTING_ACK=4, /* setting the servo ack | */
    MESSAGE_TYPE_COMMAND=5, /* command for servo | */

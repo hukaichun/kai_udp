@@ -13,6 +13,7 @@ namespace KAI
 
         bool add(const char *IP, int port);
         bool add(const UDP_PARTNER &);
+        bool update(const UDP_PARTNER &);
 
     private:
         bool check_add_partner(const UDP_PARTNER &);

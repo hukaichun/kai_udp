@@ -40,9 +40,14 @@ namespace KAI
             return _address_book.add(partner);
         }
 
+        inline bool update(const UDP_PARTNER& partner)
+        {
+            return _address_book.update(partner);
+        }
 
         ssize_t send(const void *msg, int msg_len);
         ssize_t send_to(const void *msg, int msg_len, const std::string& partner_id);
+        ssize_t send_to(const void *msg, int msg_len, const char* ip, uint32_t port);
         int recv(void *buf,
                  int buf_len,
                  UDP_PARTNER *from = nullptr);
