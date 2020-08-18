@@ -6,20 +6,20 @@
 
 typedef struct __mavlink_register_partner_t {
  uint64_t timestamp; /*<  timestamp*/
- uint32_t port; /*<  port*/
- uint16_t ip_0; /*<  ip*/
- uint16_t ip_1; /*<  ip*/
- uint16_t ip_2; /*<  ip*/
- uint16_t ip_3; /*<  ip*/
+ uint16_t port; /*<  port*/
+ uint8_t ip_0; /*<  ip*/
+ uint8_t ip_1; /*<  ip*/
+ uint8_t ip_2; /*<  ip*/
+ uint8_t ip_3; /*<  ip*/
 } mavlink_register_partner_t;
 
-#define MAVLINK_MSG_ID_REGISTER_PARTNER_LEN 20
-#define MAVLINK_MSG_ID_REGISTER_PARTNER_MIN_LEN 20
-#define MAVLINK_MSG_ID_2_LEN 20
-#define MAVLINK_MSG_ID_2_MIN_LEN 20
+#define MAVLINK_MSG_ID_REGISTER_PARTNER_LEN 14
+#define MAVLINK_MSG_ID_REGISTER_PARTNER_MIN_LEN 14
+#define MAVLINK_MSG_ID_2_LEN 14
+#define MAVLINK_MSG_ID_2_MIN_LEN 14
 
-#define MAVLINK_MSG_ID_REGISTER_PARTNER_CRC 151
-#define MAVLINK_MSG_ID_2_CRC 151
+#define MAVLINK_MSG_ID_REGISTER_PARTNER_CRC 88
+#define MAVLINK_MSG_ID_2_CRC 88
 
 
 
@@ -29,11 +29,11 @@ typedef struct __mavlink_register_partner_t {
     "REGISTER_PARTNER", \
     6, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_register_partner_t, timestamp) }, \
-         { "ip_0", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_register_partner_t, ip_0) }, \
-         { "ip_1", NULL, MAVLINK_TYPE_UINT16_T, 0, 14, offsetof(mavlink_register_partner_t, ip_1) }, \
-         { "ip_2", NULL, MAVLINK_TYPE_UINT16_T, 0, 16, offsetof(mavlink_register_partner_t, ip_2) }, \
-         { "ip_3", NULL, MAVLINK_TYPE_UINT16_T, 0, 18, offsetof(mavlink_register_partner_t, ip_3) }, \
-         { "port", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_register_partner_t, port) }, \
+         { "ip_0", NULL, MAVLINK_TYPE_UINT8_T, 0, 10, offsetof(mavlink_register_partner_t, ip_0) }, \
+         { "ip_1", NULL, MAVLINK_TYPE_UINT8_T, 0, 11, offsetof(mavlink_register_partner_t, ip_1) }, \
+         { "ip_2", NULL, MAVLINK_TYPE_UINT8_T, 0, 12, offsetof(mavlink_register_partner_t, ip_2) }, \
+         { "ip_3", NULL, MAVLINK_TYPE_UINT8_T, 0, 13, offsetof(mavlink_register_partner_t, ip_3) }, \
+         { "port", NULL, MAVLINK_TYPE_UINT16_T, 0, 8, offsetof(mavlink_register_partner_t, port) }, \
          } \
 }
 #else
@@ -41,11 +41,11 @@ typedef struct __mavlink_register_partner_t {
     "REGISTER_PARTNER", \
     6, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_register_partner_t, timestamp) }, \
-         { "ip_0", NULL, MAVLINK_TYPE_UINT16_T, 0, 12, offsetof(mavlink_register_partner_t, ip_0) }, \
-         { "ip_1", NULL, MAVLINK_TYPE_UINT16_T, 0, 14, offsetof(mavlink_register_partner_t, ip_1) }, \
-         { "ip_2", NULL, MAVLINK_TYPE_UINT16_T, 0, 16, offsetof(mavlink_register_partner_t, ip_2) }, \
-         { "ip_3", NULL, MAVLINK_TYPE_UINT16_T, 0, 18, offsetof(mavlink_register_partner_t, ip_3) }, \
-         { "port", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_register_partner_t, port) }, \
+         { "ip_0", NULL, MAVLINK_TYPE_UINT8_T, 0, 10, offsetof(mavlink_register_partner_t, ip_0) }, \
+         { "ip_1", NULL, MAVLINK_TYPE_UINT8_T, 0, 11, offsetof(mavlink_register_partner_t, ip_1) }, \
+         { "ip_2", NULL, MAVLINK_TYPE_UINT8_T, 0, 12, offsetof(mavlink_register_partner_t, ip_2) }, \
+         { "ip_3", NULL, MAVLINK_TYPE_UINT8_T, 0, 13, offsetof(mavlink_register_partner_t, ip_3) }, \
+         { "port", NULL, MAVLINK_TYPE_UINT16_T, 0, 8, offsetof(mavlink_register_partner_t, port) }, \
          } \
 }
 #endif
@@ -65,16 +65,16 @@ typedef struct __mavlink_register_partner_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_register_partner_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint64_t timestamp, uint16_t ip_0, uint16_t ip_1, uint16_t ip_2, uint16_t ip_3, uint32_t port)
+                               uint64_t timestamp, uint8_t ip_0, uint8_t ip_1, uint8_t ip_2, uint8_t ip_3, uint16_t port)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REGISTER_PARTNER_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint32_t(buf, 8, port);
-    _mav_put_uint16_t(buf, 12, ip_0);
-    _mav_put_uint16_t(buf, 14, ip_1);
-    _mav_put_uint16_t(buf, 16, ip_2);
-    _mav_put_uint16_t(buf, 18, ip_3);
+    _mav_put_uint16_t(buf, 8, port);
+    _mav_put_uint8_t(buf, 10, ip_0);
+    _mav_put_uint8_t(buf, 11, ip_1);
+    _mav_put_uint8_t(buf, 12, ip_2);
+    _mav_put_uint8_t(buf, 13, ip_3);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REGISTER_PARTNER_LEN);
 #else
@@ -109,16 +109,16 @@ static inline uint16_t mavlink_msg_register_partner_pack(uint8_t system_id, uint
  */
 static inline uint16_t mavlink_msg_register_partner_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint64_t timestamp,uint16_t ip_0,uint16_t ip_1,uint16_t ip_2,uint16_t ip_3,uint32_t port)
+                                   uint64_t timestamp,uint8_t ip_0,uint8_t ip_1,uint8_t ip_2,uint8_t ip_3,uint16_t port)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REGISTER_PARTNER_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint32_t(buf, 8, port);
-    _mav_put_uint16_t(buf, 12, ip_0);
-    _mav_put_uint16_t(buf, 14, ip_1);
-    _mav_put_uint16_t(buf, 16, ip_2);
-    _mav_put_uint16_t(buf, 18, ip_3);
+    _mav_put_uint16_t(buf, 8, port);
+    _mav_put_uint8_t(buf, 10, ip_0);
+    _mav_put_uint8_t(buf, 11, ip_1);
+    _mav_put_uint8_t(buf, 12, ip_2);
+    _mav_put_uint8_t(buf, 13, ip_3);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REGISTER_PARTNER_LEN);
 #else
@@ -177,16 +177,16 @@ static inline uint16_t mavlink_msg_register_partner_encode_chan(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_register_partner_send(mavlink_channel_t chan, uint64_t timestamp, uint16_t ip_0, uint16_t ip_1, uint16_t ip_2, uint16_t ip_3, uint32_t port)
+static inline void mavlink_msg_register_partner_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t ip_0, uint8_t ip_1, uint8_t ip_2, uint8_t ip_3, uint16_t port)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REGISTER_PARTNER_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint32_t(buf, 8, port);
-    _mav_put_uint16_t(buf, 12, ip_0);
-    _mav_put_uint16_t(buf, 14, ip_1);
-    _mav_put_uint16_t(buf, 16, ip_2);
-    _mav_put_uint16_t(buf, 18, ip_3);
+    _mav_put_uint16_t(buf, 8, port);
+    _mav_put_uint8_t(buf, 10, ip_0);
+    _mav_put_uint8_t(buf, 11, ip_1);
+    _mav_put_uint8_t(buf, 12, ip_2);
+    _mav_put_uint8_t(buf, 13, ip_3);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_REGISTER_PARTNER, buf, MAVLINK_MSG_ID_REGISTER_PARTNER_MIN_LEN, MAVLINK_MSG_ID_REGISTER_PARTNER_LEN, MAVLINK_MSG_ID_REGISTER_PARTNER_CRC);
 #else
@@ -224,16 +224,16 @@ static inline void mavlink_msg_register_partner_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_register_partner_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint16_t ip_0, uint16_t ip_1, uint16_t ip_2, uint16_t ip_3, uint32_t port)
+static inline void mavlink_msg_register_partner_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint64_t timestamp, uint8_t ip_0, uint8_t ip_1, uint8_t ip_2, uint8_t ip_3, uint16_t port)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
     _mav_put_uint64_t(buf, 0, timestamp);
-    _mav_put_uint32_t(buf, 8, port);
-    _mav_put_uint16_t(buf, 12, ip_0);
-    _mav_put_uint16_t(buf, 14, ip_1);
-    _mav_put_uint16_t(buf, 16, ip_2);
-    _mav_put_uint16_t(buf, 18, ip_3);
+    _mav_put_uint16_t(buf, 8, port);
+    _mav_put_uint8_t(buf, 10, ip_0);
+    _mav_put_uint8_t(buf, 11, ip_1);
+    _mav_put_uint8_t(buf, 12, ip_2);
+    _mav_put_uint8_t(buf, 13, ip_3);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_REGISTER_PARTNER, buf, MAVLINK_MSG_ID_REGISTER_PARTNER_MIN_LEN, MAVLINK_MSG_ID_REGISTER_PARTNER_LEN, MAVLINK_MSG_ID_REGISTER_PARTNER_CRC);
 #else
@@ -270,9 +270,9 @@ static inline uint64_t mavlink_msg_register_partner_get_timestamp(const mavlink_
  *
  * @return  ip
  */
-static inline uint16_t mavlink_msg_register_partner_get_ip_0(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_register_partner_get_ip_0(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  12);
+    return _MAV_RETURN_uint8_t(msg,  10);
 }
 
 /**
@@ -280,9 +280,9 @@ static inline uint16_t mavlink_msg_register_partner_get_ip_0(const mavlink_messa
  *
  * @return  ip
  */
-static inline uint16_t mavlink_msg_register_partner_get_ip_1(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_register_partner_get_ip_1(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  14);
+    return _MAV_RETURN_uint8_t(msg,  11);
 }
 
 /**
@@ -290,9 +290,9 @@ static inline uint16_t mavlink_msg_register_partner_get_ip_1(const mavlink_messa
  *
  * @return  ip
  */
-static inline uint16_t mavlink_msg_register_partner_get_ip_2(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_register_partner_get_ip_2(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  16);
+    return _MAV_RETURN_uint8_t(msg,  12);
 }
 
 /**
@@ -300,9 +300,9 @@ static inline uint16_t mavlink_msg_register_partner_get_ip_2(const mavlink_messa
  *
  * @return  ip
  */
-static inline uint16_t mavlink_msg_register_partner_get_ip_3(const mavlink_message_t* msg)
+static inline uint8_t mavlink_msg_register_partner_get_ip_3(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint16_t(msg,  18);
+    return _MAV_RETURN_uint8_t(msg,  13);
 }
 
 /**
@@ -310,9 +310,9 @@ static inline uint16_t mavlink_msg_register_partner_get_ip_3(const mavlink_messa
  *
  * @return  port
  */
-static inline uint32_t mavlink_msg_register_partner_get_port(const mavlink_message_t* msg)
+static inline uint16_t mavlink_msg_register_partner_get_port(const mavlink_message_t* msg)
 {
-    return _MAV_RETURN_uint32_t(msg,  8);
+    return _MAV_RETURN_uint16_t(msg,  8);
 }
 
 /**

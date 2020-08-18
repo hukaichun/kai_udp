@@ -30,7 +30,7 @@ namespace mavlink
     class MsgHandlerBase
     {
     public:
-        MsgHandlerBase() : msg_map(mavlink_msg_) {}
+        MsgHandlerBase()=default;
 
         inline void print() const
         {
@@ -43,7 +43,6 @@ namespace mavlink
             uint8_t *buf, int buf_len,
             mavlink_channel_t chen = MAVLINK_COMM_1)
         {
-            msg_map.reset();
             uint8_t done = 0;
             for (uint16_t i = 0; i < buf_len; ++i)
             {
@@ -98,7 +97,6 @@ namespace mavlink
 
         mavlink_message_t mavlink_msg_;
         mavlink_status_t status_;
-        MsgMap msg_map;
     };
 
 } // namespace mavlink

@@ -13,14 +13,15 @@ namespace msg {
  */
 struct SERVO_STATE : mavlink::Message {
     static constexpr msgid_t MSG_ID = 0;
-    static constexpr size_t LENGTH = 33;
-    static constexpr size_t MIN_LENGTH = 33;
-    static constexpr uint8_t CRC_EXTRA = 81;
+    static constexpr size_t LENGTH = 34;
+    static constexpr size_t MIN_LENGTH = 34;
+    static constexpr uint8_t CRC_EXTRA = 207;
     static constexpr auto NAME = "SERVO_STATE";
 
 
     uint8_t ID; /*<  ID */
     uint64_t timestamp; /*<  timestamp */
+    uint8_t TorqueEnable; /*<  TorqueEnable */
     float GoalPosition; /*<  GoalPosition */
     float MovingSpeed; /*<  MovingSpeed */
     float PresentPosition; /*<  PresentPosition */
@@ -46,6 +47,7 @@ struct SERVO_STATE : mavlink::Message {
         ss << NAME << ":" << std::endl;
         ss << "  ID: " << +ID << std::endl;
         ss << "  timestamp: " << timestamp << std::endl;
+        ss << "  TorqueEnable: " << +TorqueEnable << std::endl;
         ss << "  GoalPosition: " << GoalPosition << std::endl;
         ss << "  MovingSpeed: " << MovingSpeed << std::endl;
         ss << "  PresentPosition: " << PresentPosition << std::endl;
@@ -68,6 +70,7 @@ struct SERVO_STATE : mavlink::Message {
         map << PresentLoad;                   // offset: 24
         map << PresentTemperature;            // offset: 28
         map << ID;                            // offset: 32
+        map << TorqueEnable;                  // offset: 33
     }
 
     inline void deserialize(mavlink::MsgMap &map) override
@@ -80,6 +83,7 @@ struct SERVO_STATE : mavlink::Message {
         map >> PresentLoad;                   // offset: 24
         map >> PresentTemperature;            // offset: 28
         map >> ID;                            // offset: 32
+        map >> TorqueEnable;                  // offset: 33
     }
 };
 

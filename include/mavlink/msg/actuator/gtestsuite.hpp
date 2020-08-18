@@ -24,6 +24,7 @@ TEST(actuator, SERVO_STATE)
     mavlink::actuator::msg::SERVO_STATE packet_in{};
     packet_in.ID = 101;
     packet_in.timestamp = 93372036854775807ULL;
+    packet_in.TorqueEnable = 168;
     packet_in.GoalPosition = 73.0;
     packet_in.MovingSpeed = 101.0;
     packet_in.PresentPosition = 129.0;
@@ -46,6 +47,7 @@ TEST(actuator, SERVO_STATE)
 
     EXPECT_EQ(packet1.ID, packet2.ID);
     EXPECT_EQ(packet1.timestamp, packet2.timestamp);
+    EXPECT_EQ(packet1.TorqueEnable, packet2.TorqueEnable);
     EXPECT_EQ(packet1.GoalPosition, packet2.GoalPosition);
     EXPECT_EQ(packet1.MovingSpeed, packet2.MovingSpeed);
     EXPECT_EQ(packet1.PresentPosition, packet2.PresentPosition);
@@ -63,12 +65,13 @@ TEST(actuator_interop, SERVO_STATE)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_servo_state_t packet_c {
-         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 963498920, 101
+         93372036854775807ULL, 73.0, 101.0, 129.0, 157.0, 185.0, 963498920, 101, 168
     };
 
     mavlink::actuator::msg::SERVO_STATE packet_in{};
     packet_in.ID = 101;
     packet_in.timestamp = 93372036854775807ULL;
+    packet_in.TorqueEnable = 168;
     packet_in.GoalPosition = 73.0;
     packet_in.MovingSpeed = 101.0;
     packet_in.PresentPosition = 129.0;
@@ -89,6 +92,7 @@ TEST(actuator_interop, SERVO_STATE)
 
     EXPECT_EQ(packet_in.ID, packet2.ID);
     EXPECT_EQ(packet_in.timestamp, packet2.timestamp);
+    EXPECT_EQ(packet_in.TorqueEnable, packet2.TorqueEnable);
     EXPECT_EQ(packet_in.GoalPosition, packet2.GoalPosition);
     EXPECT_EQ(packet_in.MovingSpeed, packet2.MovingSpeed);
     EXPECT_EQ(packet_in.PresentPosition, packet2.PresentPosition);
@@ -169,11 +173,11 @@ TEST(actuator, REGISTER_PARTNER)
 
     mavlink::actuator::msg::REGISTER_PARTNER packet_in{};
     packet_in.timestamp = 93372036854775807ULL;
-    packet_in.ip_0 = 17859;
-    packet_in.ip_1 = 17963;
-    packet_in.ip_2 = 18067;
-    packet_in.ip_3 = 18171;
-    packet_in.port = 963497880;
+    packet_in.ip_0 = 163;
+    packet_in.ip_1 = 230;
+    packet_in.ip_2 = 41;
+    packet_in.ip_3 = 108;
+    packet_in.port = 17651;
 
     mavlink::actuator::msg::REGISTER_PARTNER packet1{};
     mavlink::actuator::msg::REGISTER_PARTNER packet2{};
@@ -205,16 +209,16 @@ TEST(actuator_interop, REGISTER_PARTNER)
     memset(&msg, 0, sizeof(msg));
 
     mavlink_register_partner_t packet_c {
-         93372036854775807ULL, 963497880, 17859, 17963, 18067, 18171
+         93372036854775807ULL, 17651, 163, 230, 41, 108
     };
 
     mavlink::actuator::msg::REGISTER_PARTNER packet_in{};
     packet_in.timestamp = 93372036854775807ULL;
-    packet_in.ip_0 = 17859;
-    packet_in.ip_1 = 17963;
-    packet_in.ip_2 = 18067;
-    packet_in.ip_3 = 18171;
-    packet_in.port = 963497880;
+    packet_in.ip_0 = 163;
+    packet_in.ip_1 = 230;
+    packet_in.ip_2 = 41;
+    packet_in.ip_3 = 108;
+    packet_in.port = 17651;
 
     mavlink::actuator::msg::REGISTER_PARTNER packet2{};
 
@@ -307,69 +311,6 @@ TEST(actuator_interop, SETTING)
 }
 #endif
 
-TEST(actuator, SETTING_ACK)
-{
-    mavlink::mavlink_message_t msg;
-    mavlink::MsgMap map1(msg);
-    mavlink::MsgMap map2(msg);
-
-    mavlink::actuator::msg::SETTING_ACK packet_in{};
-    packet_in.ID = 5;
-    packet_in.STATUS = 72;
-
-    mavlink::actuator::msg::SETTING_ACK packet1{};
-    mavlink::actuator::msg::SETTING_ACK packet2{};
-
-    packet1 = packet_in;
-
-    //std::cout << packet1.to_yaml() << std::endl;
-
-    packet1.serialize(map1);
-
-    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
-
-    packet2.deserialize(map2);
-
-    EXPECT_EQ(packet1.ID, packet2.ID);
-    EXPECT_EQ(packet1.STATUS, packet2.STATUS);
-}
-
-#ifdef TEST_INTEROP
-TEST(actuator_interop, SETTING_ACK)
-{
-    mavlink_message_t msg;
-
-    // to get nice print
-    memset(&msg, 0, sizeof(msg));
-
-    mavlink_setting_ack_t packet_c {
-         5, 72
-    };
-
-    mavlink::actuator::msg::SETTING_ACK packet_in{};
-    packet_in.ID = 5;
-    packet_in.STATUS = 72;
-
-    mavlink::actuator::msg::SETTING_ACK packet2{};
-
-    mavlink_msg_setting_ack_encode(1, 1, &msg, &packet_c);
-
-    // simulate message-handling callback
-    [&packet2](const mavlink_message_t *cmsg) {
-        MsgMap map2(cmsg);
-
-        packet2.deserialize(map2);
-    } (&msg);
-
-    EXPECT_EQ(packet_in.ID, packet2.ID);
-    EXPECT_EQ(packet_in.STATUS, packet2.STATUS);
-
-#ifdef PRINT_MSG
-    PRINT_MSG(msg);
-#endif
-}
-#endif
-
 TEST(actuator, COMMAND)
 {
     mavlink::mavlink_message_t msg;
@@ -441,69 +382,6 @@ TEST(actuator_interop, COMMAND)
 }
 #endif
 
-TEST(actuator, COMMAND_ACK)
-{
-    mavlink::mavlink_message_t msg;
-    mavlink::MsgMap map1(msg);
-    mavlink::MsgMap map2(msg);
-
-    mavlink::actuator::msg::COMMAND_ACK packet_in{};
-    packet_in.ID = 5;
-    packet_in.STATUS = 72;
-
-    mavlink::actuator::msg::COMMAND_ACK packet1{};
-    mavlink::actuator::msg::COMMAND_ACK packet2{};
-
-    packet1 = packet_in;
-
-    //std::cout << packet1.to_yaml() << std::endl;
-
-    packet1.serialize(map1);
-
-    mavlink::mavlink_finalize_message(&msg, 1, 1, packet1.MIN_LENGTH, packet1.LENGTH, packet1.CRC_EXTRA);
-
-    packet2.deserialize(map2);
-
-    EXPECT_EQ(packet1.ID, packet2.ID);
-    EXPECT_EQ(packet1.STATUS, packet2.STATUS);
-}
-
-#ifdef TEST_INTEROP
-TEST(actuator_interop, COMMAND_ACK)
-{
-    mavlink_message_t msg;
-
-    // to get nice print
-    memset(&msg, 0, sizeof(msg));
-
-    mavlink_command_ack_t packet_c {
-         5, 72
-    };
-
-    mavlink::actuator::msg::COMMAND_ACK packet_in{};
-    packet_in.ID = 5;
-    packet_in.STATUS = 72;
-
-    mavlink::actuator::msg::COMMAND_ACK packet2{};
-
-    mavlink_msg_command_ack_encode(1, 1, &msg, &packet_c);
-
-    // simulate message-handling callback
-    [&packet2](const mavlink_message_t *cmsg) {
-        MsgMap map2(cmsg);
-
-        packet2.deserialize(map2);
-    } (&msg);
-
-    EXPECT_EQ(packet_in.ID, packet2.ID);
-    EXPECT_EQ(packet_in.STATUS, packet2.STATUS);
-
-#ifdef PRINT_MSG
-    PRINT_MSG(msg);
-#endif
-}
-#endif
-
 TEST(actuator, ACTION)
 {
     mavlink::mavlink_message_t msg;
@@ -563,17 +441,18 @@ TEST(actuator_interop, ACTION)
 }
 #endif
 
-TEST(actuator, ACTION_ACK)
+TEST(actuator, ACK)
 {
     mavlink::mavlink_message_t msg;
     mavlink::MsgMap map1(msg);
     mavlink::MsgMap map2(msg);
 
-    mavlink::actuator::msg::ACTION_ACK packet_in{};
-    packet_in.STATUS = 5;
+    mavlink::actuator::msg::ACK packet_in{};
+    packet_in.MSG_TYPE = 963497464;
+    packet_in.STATUS = 17;
 
-    mavlink::actuator::msg::ACTION_ACK packet1{};
-    mavlink::actuator::msg::ACTION_ACK packet2{};
+    mavlink::actuator::msg::ACK packet1{};
+    mavlink::actuator::msg::ACK packet2{};
 
     packet1 = packet_in;
 
@@ -585,27 +464,29 @@ TEST(actuator, ACTION_ACK)
 
     packet2.deserialize(map2);
 
+    EXPECT_EQ(packet1.MSG_TYPE, packet2.MSG_TYPE);
     EXPECT_EQ(packet1.STATUS, packet2.STATUS);
 }
 
 #ifdef TEST_INTEROP
-TEST(actuator_interop, ACTION_ACK)
+TEST(actuator_interop, ACK)
 {
     mavlink_message_t msg;
 
     // to get nice print
     memset(&msg, 0, sizeof(msg));
 
-    mavlink_action_ack_t packet_c {
-         5
+    mavlink_ack_t packet_c {
+         963497464, 17
     };
 
-    mavlink::actuator::msg::ACTION_ACK packet_in{};
-    packet_in.STATUS = 5;
+    mavlink::actuator::msg::ACK packet_in{};
+    packet_in.MSG_TYPE = 963497464;
+    packet_in.STATUS = 17;
 
-    mavlink::actuator::msg::ACTION_ACK packet2{};
+    mavlink::actuator::msg::ACK packet2{};
 
-    mavlink_msg_action_ack_encode(1, 1, &msg, &packet_c);
+    mavlink_msg_ack_encode(1, 1, &msg, &packet_c);
 
     // simulate message-handling callback
     [&packet2](const mavlink_message_t *cmsg) {
@@ -614,6 +495,7 @@ TEST(actuator_interop, ACTION_ACK)
         packet2.deserialize(map2);
     } (&msg);
 
+    EXPECT_EQ(packet_in.MSG_TYPE, packet2.MSG_TYPE);
     EXPECT_EQ(packet_in.STATUS, packet2.STATUS);
 
 #ifdef PRINT_MSG

@@ -42,15 +42,22 @@ namespace KAI
 
     ssize_t UDP::send_to(const void *msg, int msg_len, const std::string &partner_id)
     {
-        const UDP_PARTNER &partner = _address_book[partner_id];
-        return sendto(
-            _fd,
-            msg, msg_len,
-            0,
-            (sockaddr *)&(partner.sock), sizeof(partner));
+        if (_address_book.count(partner_id))
+        {
+            const UDP_PARTNER &partner = _address_book[partner_id];
+            return sendto(
+                _fd,
+                msg, msg_len,
+                0,
+                (sockaddr *)&(partner.sock), sizeof(partner));
+        }else
+        {
+            printf("Warn!! unknow partner_id \n");
+            return 0;
+        }
     }
 
-    ssize_t UDP::send_to(const void *msg, int msg_len, const char* ip, uint32_t port)
+    ssize_t UDP::send_to(const void *msg, int msg_len, const char *ip, uint32_t port)
     {
         char buf[64];
         sprintf(buf, "%s:%d", ip, port);

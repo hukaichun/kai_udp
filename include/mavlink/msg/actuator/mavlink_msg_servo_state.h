@@ -13,15 +13,16 @@ typedef struct __mavlink_servo_state_t {
  float PresentLoad; /*<  PresentLoad*/
  uint32_t PresentTemperature; /*<  PresentTemperature*/
  uint8_t ID; /*<  ID*/
+ uint8_t TorqueEnable; /*<  TorqueEnable*/
 } mavlink_servo_state_t;
 
-#define MAVLINK_MSG_ID_SERVO_STATE_LEN 33
-#define MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN 33
-#define MAVLINK_MSG_ID_0_LEN 33
-#define MAVLINK_MSG_ID_0_MIN_LEN 33
+#define MAVLINK_MSG_ID_SERVO_STATE_LEN 34
+#define MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN 34
+#define MAVLINK_MSG_ID_0_LEN 34
+#define MAVLINK_MSG_ID_0_MIN_LEN 34
 
-#define MAVLINK_MSG_ID_SERVO_STATE_CRC 81
-#define MAVLINK_MSG_ID_0_CRC 81
+#define MAVLINK_MSG_ID_SERVO_STATE_CRC 207
+#define MAVLINK_MSG_ID_0_CRC 207
 
 
 
@@ -29,9 +30,10 @@ typedef struct __mavlink_servo_state_t {
 #define MAVLINK_MESSAGE_INFO_SERVO_STATE { \
     0, \
     "SERVO_STATE", \
-    8, \
+    9, \
     {  { "ID", NULL, MAVLINK_TYPE_UINT8_T, 0, 32, offsetof(mavlink_servo_state_t, ID) }, \
          { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_servo_state_t, timestamp) }, \
+         { "TorqueEnable", NULL, MAVLINK_TYPE_UINT8_T, 0, 33, offsetof(mavlink_servo_state_t, TorqueEnable) }, \
          { "GoalPosition", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_servo_state_t, GoalPosition) }, \
          { "MovingSpeed", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_servo_state_t, MovingSpeed) }, \
          { "PresentPosition", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_servo_state_t, PresentPosition) }, \
@@ -43,9 +45,10 @@ typedef struct __mavlink_servo_state_t {
 #else
 #define MAVLINK_MESSAGE_INFO_SERVO_STATE { \
     "SERVO_STATE", \
-    8, \
+    9, \
     {  { "ID", NULL, MAVLINK_TYPE_UINT8_T, 0, 32, offsetof(mavlink_servo_state_t, ID) }, \
          { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_servo_state_t, timestamp) }, \
+         { "TorqueEnable", NULL, MAVLINK_TYPE_UINT8_T, 0, 33, offsetof(mavlink_servo_state_t, TorqueEnable) }, \
          { "GoalPosition", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_servo_state_t, GoalPosition) }, \
          { "MovingSpeed", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_servo_state_t, MovingSpeed) }, \
          { "PresentPosition", NULL, MAVLINK_TYPE_FLOAT, 0, 16, offsetof(mavlink_servo_state_t, PresentPosition) }, \
@@ -64,6 +67,7 @@ typedef struct __mavlink_servo_state_t {
  *
  * @param ID  ID
  * @param timestamp  timestamp
+ * @param TorqueEnable  TorqueEnable
  * @param GoalPosition  GoalPosition
  * @param MovingSpeed  MovingSpeed
  * @param PresentPosition  PresentPosition
@@ -73,7 +77,7 @@ typedef struct __mavlink_servo_state_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_servo_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               uint8_t ID, uint64_t timestamp, float GoalPosition, float MovingSpeed, float PresentPosition, float PresentSpeed, float PresentLoad, uint32_t PresentTemperature)
+                               uint8_t ID, uint64_t timestamp, uint8_t TorqueEnable, float GoalPosition, float MovingSpeed, float PresentPosition, float PresentSpeed, float PresentLoad, uint32_t PresentTemperature)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SERVO_STATE_LEN];
@@ -85,6 +89,7 @@ static inline uint16_t mavlink_msg_servo_state_pack(uint8_t system_id, uint8_t c
     _mav_put_float(buf, 24, PresentLoad);
     _mav_put_uint32_t(buf, 28, PresentTemperature);
     _mav_put_uint8_t(buf, 32, ID);
+    _mav_put_uint8_t(buf, 33, TorqueEnable);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERVO_STATE_LEN);
 #else
@@ -97,6 +102,7 @@ static inline uint16_t mavlink_msg_servo_state_pack(uint8_t system_id, uint8_t c
     packet.PresentLoad = PresentLoad;
     packet.PresentTemperature = PresentTemperature;
     packet.ID = ID;
+    packet.TorqueEnable = TorqueEnable;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SERVO_STATE_LEN);
 #endif
@@ -113,6 +119,7 @@ static inline uint16_t mavlink_msg_servo_state_pack(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param ID  ID
  * @param timestamp  timestamp
+ * @param TorqueEnable  TorqueEnable
  * @param GoalPosition  GoalPosition
  * @param MovingSpeed  MovingSpeed
  * @param PresentPosition  PresentPosition
@@ -123,7 +130,7 @@ static inline uint16_t mavlink_msg_servo_state_pack(uint8_t system_id, uint8_t c
  */
 static inline uint16_t mavlink_msg_servo_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   uint8_t ID,uint64_t timestamp,float GoalPosition,float MovingSpeed,float PresentPosition,float PresentSpeed,float PresentLoad,uint32_t PresentTemperature)
+                                   uint8_t ID,uint64_t timestamp,uint8_t TorqueEnable,float GoalPosition,float MovingSpeed,float PresentPosition,float PresentSpeed,float PresentLoad,uint32_t PresentTemperature)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SERVO_STATE_LEN];
@@ -135,6 +142,7 @@ static inline uint16_t mavlink_msg_servo_state_pack_chan(uint8_t system_id, uint
     _mav_put_float(buf, 24, PresentLoad);
     _mav_put_uint32_t(buf, 28, PresentTemperature);
     _mav_put_uint8_t(buf, 32, ID);
+    _mav_put_uint8_t(buf, 33, TorqueEnable);
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERVO_STATE_LEN);
 #else
@@ -147,6 +155,7 @@ static inline uint16_t mavlink_msg_servo_state_pack_chan(uint8_t system_id, uint
     packet.PresentLoad = PresentLoad;
     packet.PresentTemperature = PresentTemperature;
     packet.ID = ID;
+    packet.TorqueEnable = TorqueEnable;
 
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SERVO_STATE_LEN);
 #endif
@@ -165,7 +174,7 @@ static inline uint16_t mavlink_msg_servo_state_pack_chan(uint8_t system_id, uint
  */
 static inline uint16_t mavlink_msg_servo_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_servo_state_t* servo_state)
 {
-    return mavlink_msg_servo_state_pack(system_id, component_id, msg, servo_state->ID, servo_state->timestamp, servo_state->GoalPosition, servo_state->MovingSpeed, servo_state->PresentPosition, servo_state->PresentSpeed, servo_state->PresentLoad, servo_state->PresentTemperature);
+    return mavlink_msg_servo_state_pack(system_id, component_id, msg, servo_state->ID, servo_state->timestamp, servo_state->TorqueEnable, servo_state->GoalPosition, servo_state->MovingSpeed, servo_state->PresentPosition, servo_state->PresentSpeed, servo_state->PresentLoad, servo_state->PresentTemperature);
 }
 
 /**
@@ -179,7 +188,7 @@ static inline uint16_t mavlink_msg_servo_state_encode(uint8_t system_id, uint8_t
  */
 static inline uint16_t mavlink_msg_servo_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_servo_state_t* servo_state)
 {
-    return mavlink_msg_servo_state_pack_chan(system_id, component_id, chan, msg, servo_state->ID, servo_state->timestamp, servo_state->GoalPosition, servo_state->MovingSpeed, servo_state->PresentPosition, servo_state->PresentSpeed, servo_state->PresentLoad, servo_state->PresentTemperature);
+    return mavlink_msg_servo_state_pack_chan(system_id, component_id, chan, msg, servo_state->ID, servo_state->timestamp, servo_state->TorqueEnable, servo_state->GoalPosition, servo_state->MovingSpeed, servo_state->PresentPosition, servo_state->PresentSpeed, servo_state->PresentLoad, servo_state->PresentTemperature);
 }
 
 /**
@@ -188,6 +197,7 @@ static inline uint16_t mavlink_msg_servo_state_encode_chan(uint8_t system_id, ui
  *
  * @param ID  ID
  * @param timestamp  timestamp
+ * @param TorqueEnable  TorqueEnable
  * @param GoalPosition  GoalPosition
  * @param MovingSpeed  MovingSpeed
  * @param PresentPosition  PresentPosition
@@ -197,7 +207,7 @@ static inline uint16_t mavlink_msg_servo_state_encode_chan(uint8_t system_id, ui
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_servo_state_send(mavlink_channel_t chan, uint8_t ID, uint64_t timestamp, float GoalPosition, float MovingSpeed, float PresentPosition, float PresentSpeed, float PresentLoad, uint32_t PresentTemperature)
+static inline void mavlink_msg_servo_state_send(mavlink_channel_t chan, uint8_t ID, uint64_t timestamp, uint8_t TorqueEnable, float GoalPosition, float MovingSpeed, float PresentPosition, float PresentSpeed, float PresentLoad, uint32_t PresentTemperature)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SERVO_STATE_LEN];
@@ -209,6 +219,7 @@ static inline void mavlink_msg_servo_state_send(mavlink_channel_t chan, uint8_t 
     _mav_put_float(buf, 24, PresentLoad);
     _mav_put_uint32_t(buf, 28, PresentTemperature);
     _mav_put_uint8_t(buf, 32, ID);
+    _mav_put_uint8_t(buf, 33, TorqueEnable);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SERVO_STATE, buf, MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN, MAVLINK_MSG_ID_SERVO_STATE_LEN, MAVLINK_MSG_ID_SERVO_STATE_CRC);
 #else
@@ -221,6 +232,7 @@ static inline void mavlink_msg_servo_state_send(mavlink_channel_t chan, uint8_t 
     packet.PresentLoad = PresentLoad;
     packet.PresentTemperature = PresentTemperature;
     packet.ID = ID;
+    packet.TorqueEnable = TorqueEnable;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SERVO_STATE, (const char *)&packet, MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN, MAVLINK_MSG_ID_SERVO_STATE_LEN, MAVLINK_MSG_ID_SERVO_STATE_CRC);
 #endif
@@ -234,7 +246,7 @@ static inline void mavlink_msg_servo_state_send(mavlink_channel_t chan, uint8_t 
 static inline void mavlink_msg_servo_state_send_struct(mavlink_channel_t chan, const mavlink_servo_state_t* servo_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_servo_state_send(chan, servo_state->ID, servo_state->timestamp, servo_state->GoalPosition, servo_state->MovingSpeed, servo_state->PresentPosition, servo_state->PresentSpeed, servo_state->PresentLoad, servo_state->PresentTemperature);
+    mavlink_msg_servo_state_send(chan, servo_state->ID, servo_state->timestamp, servo_state->TorqueEnable, servo_state->GoalPosition, servo_state->MovingSpeed, servo_state->PresentPosition, servo_state->PresentSpeed, servo_state->PresentLoad, servo_state->PresentTemperature);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SERVO_STATE, (const char *)servo_state, MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN, MAVLINK_MSG_ID_SERVO_STATE_LEN, MAVLINK_MSG_ID_SERVO_STATE_CRC);
 #endif
@@ -248,7 +260,7 @@ static inline void mavlink_msg_servo_state_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_servo_state_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t ID, uint64_t timestamp, float GoalPosition, float MovingSpeed, float PresentPosition, float PresentSpeed, float PresentLoad, uint32_t PresentTemperature)
+static inline void mavlink_msg_servo_state_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  uint8_t ID, uint64_t timestamp, uint8_t TorqueEnable, float GoalPosition, float MovingSpeed, float PresentPosition, float PresentSpeed, float PresentLoad, uint32_t PresentTemperature)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -260,6 +272,7 @@ static inline void mavlink_msg_servo_state_send_buf(mavlink_message_t *msgbuf, m
     _mav_put_float(buf, 24, PresentLoad);
     _mav_put_uint32_t(buf, 28, PresentTemperature);
     _mav_put_uint8_t(buf, 32, ID);
+    _mav_put_uint8_t(buf, 33, TorqueEnable);
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SERVO_STATE, buf, MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN, MAVLINK_MSG_ID_SERVO_STATE_LEN, MAVLINK_MSG_ID_SERVO_STATE_CRC);
 #else
@@ -272,6 +285,7 @@ static inline void mavlink_msg_servo_state_send_buf(mavlink_message_t *msgbuf, m
     packet->PresentLoad = PresentLoad;
     packet->PresentTemperature = PresentTemperature;
     packet->ID = ID;
+    packet->TorqueEnable = TorqueEnable;
 
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SERVO_STATE, (const char *)packet, MAVLINK_MSG_ID_SERVO_STATE_MIN_LEN, MAVLINK_MSG_ID_SERVO_STATE_LEN, MAVLINK_MSG_ID_SERVO_STATE_CRC);
 #endif
@@ -301,6 +315,16 @@ static inline uint8_t mavlink_msg_servo_state_get_ID(const mavlink_message_t* ms
 static inline uint64_t mavlink_msg_servo_state_get_timestamp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg,  0);
+}
+
+/**
+ * @brief Get field TorqueEnable from servo_state message
+ *
+ * @return  TorqueEnable
+ */
+static inline uint8_t mavlink_msg_servo_state_get_TorqueEnable(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  33);
 }
 
 /**
@@ -380,6 +404,7 @@ static inline void mavlink_msg_servo_state_decode(const mavlink_message_t* msg, 
     servo_state->PresentLoad = mavlink_msg_servo_state_get_PresentLoad(msg);
     servo_state->PresentTemperature = mavlink_msg_servo_state_get_PresentTemperature(msg);
     servo_state->ID = mavlink_msg_servo_state_get_ID(msg);
+    servo_state->TorqueEnable = mavlink_msg_servo_state_get_TorqueEnable(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SERVO_STATE_LEN? msg->len : MAVLINK_MSG_ID_SERVO_STATE_LEN;
         memset(servo_state, 0, MAVLINK_MSG_ID_SERVO_STATE_LEN);
